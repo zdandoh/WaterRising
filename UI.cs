@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextAdventure
+namespace WaterRising
 {
     class UI
     {
@@ -36,6 +36,7 @@ namespace TextAdventure
 |                                                   |                         |
 |---------------------------------------------------|-------------------------|
 ");
+        static StringBuilder blank_frame = new StringBuilder(frame.ToString());
         public static void Update()
         {
             Console.Clear();
@@ -66,11 +67,30 @@ namespace TextAdventure
                     log_coords[1] = 1 + log_coords[0];
                     log_coords[0]++;
                 }
+                if (log_coords[0] >= 22)
+                {
+                    Clear();
+                }
                 frame[((log_coords[0] * 80) + log_coords[1] + 4)] = c;
                 log_coords[1]++;
             }
             log_coords[0]++;
             log_coords[1] = log_coords[0];
+        }
+
+        public static void Clear()
+        {
+            // Clear log chars
+            for (int clear_count = 0; clear_count <= 12; clear_count++)
+            {
+                Console.Clear();
+                frame = new StringBuilder(blank_frame.ToString());
+                UpdateMap(Program.PlanetGen.GetPlanet(), Program.player);
+                log_coords[0] = 1;
+                log_coords[1] = 1;
+                Console.WriteLine(log_coords[0]);
+                Console.WriteLine(log_coords[1]);
+            }
         }
     }
 }

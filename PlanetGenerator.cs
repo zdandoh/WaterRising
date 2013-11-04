@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextAdventure
+namespace WaterRising
 {
     public class PlanetGenerator
     {
         static Random RandGen = new Random();
         static Stopwatch watch = new Stopwatch();
+        static int size = 1000;
+        public static byte[,] planet = new byte[size, size];
         static void GetBlockIDs()
         {
             byte TREE = 1;
@@ -18,12 +20,15 @@ namespace TextAdventure
             byte SHRUB = 3;
         }
 
+        public byte[,] GetPlanet()
+        {
+            return planet;
+        }
+
         public byte[,] MakePlanet()
         {
-            int size = 1000;
             GetBlockIDs();
             Console.WriteLine("Placing dirt...");
-            byte[,] planet = new byte[size, size];
             Console.WriteLine("Planting plants...");
             planet = RandScatter(planet, 1, 10);
             Console.WriteLine("Adding shrubbery...");

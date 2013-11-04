@@ -5,21 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextAdventure
+namespace WaterRising
 {
-    class Program
+    public class Program
     {
         static Random RandGen = new Random();
         static Stopwatch watch = new Stopwatch();
-        static PlanetGenerator PlanetGen = new PlanetGenerator();
+        public static PlanetGenerator PlanetGen = new PlanetGenerator();
         static UI ui = new UI();
+        public static int[] player = { 500, 500 };
         static void Main(string[] args)
         {
             // Setup adventure, yo
             const string VERSION = "0.1";
-            const bool DEBUG = true;
+            const bool DEBUG = false;
             const bool SETUP = false;
-            int[] player = { 500, 500 };
             Console.BufferHeight = 25;
             Console.CursorVisible = false;
             if (DEBUG == true)
@@ -44,12 +44,18 @@ namespace TextAdventure
             byte[,] world = PlanetGen.MakePlanet();
             Console.Clear();
             UI.UpdateMap(world, player);
-            UI.Log("You've arrived on the planet");
+            UI.Log("Welcome to the planet!");
+            UI.Update();
+            Console.ReadLine();
+            UI.Clear();
+            UI.Update();
+            Console.ReadLine();
+            UI.Log("PENIS");
             UI.Update();
             Console.ReadLine();
         }
 
-        static void SlowWrite(string str)
+        public static void SlowWrite(string str)
         {
             int place = 0;
             int str_length = str.Length;
