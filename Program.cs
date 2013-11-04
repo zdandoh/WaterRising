@@ -18,15 +18,10 @@ namespace WaterRising
         {
             // Setup adventure, yo
             const string VERSION = "0.1";
-            const bool DEBUG = false;
-            const bool SETUP = false;
+            const bool DEV = true;
             Console.BufferHeight = 25;
-            Console.CursorVisible = false;
-            if (DEBUG == true)
-            {
-                Console.CursorVisible = true;
-            }
-            if (SETUP == true)
+            Console.Title = String.Format("Water Rising v{0}", VERSION);
+            if (DEV == false)
             {
                 Console.WriteLine("CMDRPG v{0}", VERSION);
                 SlowWrite("What's your name? ");
@@ -38,20 +33,10 @@ namespace WaterRising
                 SlowWrite("Looks like the ship is ready to go, press enter to embark!");
                 Console.ReadLine();
             }
-
-            Console.Clear();
-            Console.WriteLine("Traveling to planet...");
+            UI.Update();
             byte[,] world = PlanetGen.MakePlanet();
-            Console.Clear();
             UI.UpdateMap(world, player);
-            UI.Log("Welcome to the planet!");
-            UI.Update();
-            Console.ReadLine();
-            UI.Clear();
-            UI.Update();
-            Console.ReadLine();
-            UI.Log("PENIS");
-            UI.Update();
+            UI.Log("Arrived at planet!");
             Console.ReadLine();
         }
 

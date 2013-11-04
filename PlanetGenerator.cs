@@ -28,16 +28,16 @@ namespace WaterRising
         public byte[,] MakePlanet()
         {
             GetBlockIDs();
-            Console.WriteLine("Placing dirt...");
-            Console.WriteLine("Planting plants...");
+            UI.Log("Placing dirt...");
+            UI.Log("Planting plants...");
             planet = RandScatter(planet, 1, 10);
-            Console.WriteLine("Adding shrubbery...");
+            UI.Log("Adding shrubbery...");
             planet = RandScatter(planet, 3, 1000);
-            Console.WriteLine("Growing Forest...");
+            UI.Log("Growing Forest...");
             planet = AddBlob(planet, 1, 2000, 10);
-            Console.WriteLine("Making Ponds...");
+            UI.Log("Making Ponds...");
             planet = AddBlob(planet, 2, 100, 1000);
-            Console.WriteLine("Smoothening...");
+            UI.Log("Smoothening...");
             // Change all with 4 around to those who surround it
             return planet;
         }

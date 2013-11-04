@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WaterRising
 {
-    class UI
+    public class UI
     {
         static byte[,] map = new byte[15,25];
         static int[] map_start = { 1, 53 };
@@ -28,11 +28,12 @@ namespace WaterRising
 |                                                   |                         |
 |                                                   |                         |
 |                                                   |                         |
+|                                                   |                         |
 |                                                   |-------------------------|
 |                                                   |                         |
 |                                                   |                         |
 |                                                   |                         |
-|                                                   |                         |
+|---------------------------------------------------|                         |
 |                                                   |                         |
 |---------------------------------------------------|-------------------------|
 ");
@@ -41,6 +42,8 @@ namespace WaterRising
         {
             Console.Clear();
             Console.Write(frame.ToString());
+            Console.CursorLeft = 1;
+            Console.CursorTop = 22;
         }
 
         public static void UpdateMap(byte[,] planet, int[] player)
@@ -55,6 +58,7 @@ namespace WaterRising
                     frame[(map_start[0] + row) * 81 + (map_start[1] + col) + 2] = map_raw;
                 }
             }
+            Update();
         }
 
         public static void Log(string str)
@@ -67,7 +71,7 @@ namespace WaterRising
                     log_coords[1] = 1 + log_coords[0];
                     log_coords[0]++;
                 }
-                if (log_coords[0] >= 22)
+                if (log_coords[0] >= 21)
                 {
                     Clear();
                 }
@@ -76,6 +80,7 @@ namespace WaterRising
             }
             log_coords[0]++;
             log_coords[1] = log_coords[0];
+            Update();
         }
 
         public static void Clear()
