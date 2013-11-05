@@ -20,6 +20,7 @@ namespace WaterRising
             const string VERSION = "0.1";
             const bool DEV = true;
             Console.BufferHeight = 25;
+            Console.CursorVisible = false;
             Console.Title = String.Format("Water Rising v{0}", VERSION);
             if (DEV == false)
             {
@@ -37,7 +38,8 @@ namespace WaterRising
             byte[,] world = PlanetGen.MakePlanet();
             UI.UpdateMap(world, player);
             UI.Log("Arrived at planet!");
-            Console.ReadLine();
+            UI.ReadLine();
+            UI.ReadLine();
         }
 
         public static void SlowWrite(string str)

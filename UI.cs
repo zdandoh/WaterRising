@@ -83,6 +83,15 @@ namespace WaterRising
             Update();
         }
 
+        public static string ReadLine()
+        {
+            Console.CursorVisible = true;
+            string console_output = Console.ReadLine();
+            Console.CursorVisible = false;
+            Update();
+            return console_output;
+        }
+
         public static void Clear()
         {
             // Clear log chars

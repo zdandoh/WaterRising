@@ -13,6 +13,7 @@ namespace WaterRising
         static Stopwatch watch = new Stopwatch();
         static int size = 1000;
         public static byte[,] planet = new byte[size, size];
+
         static void GetBlockIDs()
         {
             byte TREE = 1;
