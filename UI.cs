@@ -87,10 +87,10 @@ namespace WaterRising
                     }
                     else if (map_raw == '1')
                     {
-                        // TREE
+                        // MOUNTAIN
                         Console.BackgroundColor = ConsoleColor.DarkGreen;
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        map_raw = '^';
+                        map_raw = '▲';
                     }
                     else if (map_raw == '2')
                     {
@@ -101,9 +101,17 @@ namespace WaterRising
                     }
                     else if (map_raw == '3')
                     {
+                        // SHRUB
                         Console.BackgroundColor = ConsoleColor.Green;
                         Console.ForegroundColor = ConsoleColor.Red;
                         map_raw = '#';
+                    }
+                    else if (map_raw == '4')
+                    {
+                        // TREE
+                        Console.BackgroundColor = ConsoleColor.DarkGreen;
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        map_raw = '↑';
                     }
                     else
                     {

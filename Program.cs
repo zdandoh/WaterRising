@@ -14,6 +14,7 @@ namespace WaterRising
         public static PlanetGenerator PlanetGen = new PlanetGenerator();
         static UI ui = new UI();
         public static int[] player = { 500, 500 };
+        public static byte player_tile = 0;
         static void Main(string[] args)
         {
             // Setup adventure, yo

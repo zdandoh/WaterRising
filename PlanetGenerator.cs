@@ -16,9 +16,11 @@ namespace WaterRising
 
         static void GetBlockIDs()
         {
-            byte TREE = 1;
+            byte PLAYER = 9;
+            byte MOUNTAIN = 1;
             byte WATER = 2;
             byte SHRUB = 3;
+            byte TREE = 4;
         }
 
         public byte[,] GetPlanet()
@@ -30,14 +32,17 @@ namespace WaterRising
         {
             GetBlockIDs();
             UI.Log("Placing dirt...");
-            UI.Log("Planting plants...");
+            UI.Log("Landscaping...");
             planet = RandScatter(planet, 1, 10);
+            planet = RandScatter(planet, 4, 7);
             UI.Log("Adding shrubbery...");
             planet = RandScatter(planet, 3, 1000);
-            UI.Log("Growing Forest...");
-            planet = AddBlob(planet, 1, 2000, 10);
+            UI.Log("Growing forest...");
+            planet = AddBlob(planet, 4, 2000, 10);
             UI.Log("Making Ponds...");
             planet = AddBlob(planet, 2, 100, 1000);
+            UI.Log("Raising mountains...");
+            planet = AddBlob(planet, 1, 100, 1000);
             UI.Log("Smoothening...");
             // Change all with 4 around to those who surround it
             return planet;
