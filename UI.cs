@@ -29,8 +29,8 @@ namespace WaterRising
 |                                                   |                         |
 |                                                   |                         |
 |                                                   |                         |
-|                                                   |                         |
 |                                                   |-------------------------|
+|                                                   |                         |
 |                                                   |                         |
 |                                                   |                         |
 |                                                   |                         |
@@ -72,7 +72,7 @@ namespace WaterRising
         {
             Console.CursorVisible = false;
             Console.CursorLeft = 53;
-            Console.CursorTop = 2;
+            Console.CursorTop = 1;
             for (int row = 0; row < 15; row++ )
             {
                 for (int col = 0; col < 25; col++)
@@ -147,6 +147,7 @@ namespace WaterRising
         public static string ReadLine()
         {
             Console.CursorVisible = true;
+            Console.Write("» ");
             string console_output = Console.ReadLine();
             Console.CursorVisible = false;
             Update();
