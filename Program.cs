@@ -13,12 +13,11 @@ namespace WaterRising
         static Stopwatch watch = new Stopwatch();
         public static PlanetGenerator PlanetGen = new PlanetGenerator();
         static UI ui = new UI();
-        public static int[] player = { 500, 500 };
         public static byte player_tile = 0;
         static void Main(string[] args)
         {
             // Setup adventure, yo
-            const string VERSION = "0.1";
+            const string VERSION = "0.1a";
             const bool DEV = true;
             Console.BufferHeight = 25;
             Console.CursorVisible = false;
@@ -37,10 +36,11 @@ namespace WaterRising
             }
             UI.Update();
             byte[,] world = PlanetGen.MakePlanet();
-            UI.UpdateMap(world, player);
+            UI.UpdateMap(world, Player.pos);
             UI.Log("Arrived at planet!");
-            UI.ReadLine();
-            UI.ReadLine();
+
+            // Main game loop begins
+            PlayGame();
         }
 
         public static void SlowWrite(string str)
@@ -54,6 +54,14 @@ namespace WaterRising
                 place++;
             }
             Console.Write("\n");
+        }
+
+        public static void PlayGame()
+        {
+            while (true)
+            {
+                UI.ReadLine();
+            }
         }
     }
 }

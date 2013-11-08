@@ -62,7 +62,7 @@ namespace WaterRising
                     // iterate through every map byte
                     char map_raw = planet[top_left[0] + row, top_left[1] + col].ToString().Single();
                     map[row, col] = map_raw;
-                    frame[(map_start[0] + row) * 81 + (map_start[1] + col) + 2] = map_raw;
+                    // frame[(map_start[0] + row) * 81 + (map_start[1] + col) + 2] = map_raw;
                 }
             }
             Update();
@@ -102,9 +102,9 @@ namespace WaterRising
                     else if (map_raw == '3')
                     {
                         // SHRUB
-                        Console.BackgroundColor = ConsoleColor.Green;
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        map_raw = '#';
+                        Console.BackgroundColor = ConsoleColor.DarkGreen;
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        map_raw = '♣';
                     }
                     else if (map_raw == '4')
                     {
@@ -119,6 +119,14 @@ namespace WaterRising
                         throw bad_block;
                     }
                     Console.Write(map_raw);
+
+                    if (Console.CursorLeft == 66 & Console.CursorTop == 8)
+                    {
+                        // Draw the player
+                        Console.CursorLeft--;
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write('☺');
+                    }
                 }
                 if (Console.CursorTop < 24)
                 {
@@ -156,10 +164,32 @@ namespace WaterRising
         {
             Console.CursorVisible = true;
             Console.Write("» ");
-            string console_output = Console.ReadLine();
-            Console.CursorVisible = false;
-            Update();
-            return console_output;
+            // Check if the first keypress is an arrow key
+            string readline_output = "";
+            ConsoleKeyInfo first_keypress = Console.ReadKey();
+            if (first_keypress.Key == ConsoleKey.UpArrow)
+            {
+                Player.Move(1);
+            }
+            else if (first_keypress.Key == ConsoleKey.RightArrow)
+            {
+                Player.Move(2);
+            }
+            else if (first_keypress.Key == ConsoleKey.DownArrow)
+            {
+                Player.Move(3);
+            }
+            else if (first_keypress.Key == ConsoleKey.LeftArrow)
+            {
+                Player.Move(4);
+            }
+            else
+            {
+                readline_output = first_keypress.ToString() + Console.ReadLine();
+                Console.CursorVisible = false;
+                Update();
+            }
+            return readline_output;
         }
 
         public static void Clear()
@@ -169,7 +199,7 @@ namespace WaterRising
             {
                 Console.Clear();
                 frame = new StringBuilder(blank_frame.ToString());
-                UpdateMap(Program.PlanetGen.GetPlanet(), Program.player);
+                UpdateMap(Program.PlanetGen.GetPlanet(), Player.pos);
                 log_coords[0] = 1;
                 log_coords[1] = 1;
             }
