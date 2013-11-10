@@ -10,5 +10,5 @@ Some unique planned features:
 - Random Terrain Generation (Limited in variety, but done)
 - Open world
 - Colored map
-- Synonym database for flexable command recognition
+- Synonym database for flexible command recognition
 - 100% less feature creep

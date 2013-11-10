@@ -38,7 +38,7 @@ namespace WaterRising
 |                                                   |                         |
 |---------------------------------------------------|-------------------------|
 ");
-        static string[] log_data = new string[20];
+        static List<string> log_data = new List<string>();
         static StringBuilder blank_frame = new StringBuilder(frame.ToString());
         static StringBuilder blank_log = new StringBuilder(log_data.ToString());
         public static void Update()
@@ -46,7 +46,8 @@ namespace WaterRising
             Console.CursorLeft = 0;
             Console.CursorTop = 0;
             Console.Write(frame.ToString());
-            for (byte log_entry = 0; log_entry < log_data.Length; log_entry++ )
+
+            for (int log_entry = 1; log_entry < log_data.Count; log_entry++ )
             {
                 Console.CursorTop = log_entry;
                 Console.CursorLeft = 1;
@@ -149,16 +150,45 @@ namespace WaterRising
             Console.CursorVisible = true;
         }
 
+        static IEnumerable<string> Split(string str, int chunkSize)
+        {
+            return Enumerable.Range(0, str.Length / chunkSize).Select(i => str.Substring(i * chunkSize, chunkSize));
+        }
+
         public static void Log(string text)
         {
-            Regex.Replace(text, "(.{" + 51 + "})", "$1" + Environment.NewLine);
-            log_data[log_coords[0]] = ' ' + text;
-            log_coords[0] += text.Split('\n').Length;
+            // Split the input string into 49 character substrings
+            char[] text_chars = text.ToCharArray();
+            List<string> text_lines = new List<string>();
+            string line = "";
+            foreach (char text_char in text_chars)
+            {
+                if (line.Length >= 49)
+                {
+                    text_lines.Add(line);
+                    line = "";
+                }
+                line += text_char;
+            }
+            if (line.Length >= 1)
+            {
+                text_lines.Add(line);
+            }
+            // Iterate through all substrings and add them to the log data
+            foreach (string full_line in text_lines)
+            {
+                log_data.Add(" " + full_line);
+                if (log_data.Count > 21)
+                {
+                    log_data.RemoveAt(0);
+                }
+            }
             Update();
         }
 
         public static string ReadLine()
         {
+            // Setup input visuals
             Console.CursorVisible = true;
             Console.Write("» ");
             // Check if the first keypress is an arrow key
@@ -182,6 +212,7 @@ namespace WaterRising
             }
             else
             {
+                // Read whole line if not arrow key
                 readline_output = first_keypress.ToString() + Console.ReadLine();
                 Console.CursorVisible = false;
                 Update();

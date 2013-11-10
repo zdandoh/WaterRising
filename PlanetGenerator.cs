@@ -16,7 +16,6 @@ namespace WaterRising
 
         static void GetBlockIDs()
         {
-            byte PLAYER = 9;
             byte MOUNTAIN = 1;
             byte WATER = 2;
             byte SHRUB = 3;

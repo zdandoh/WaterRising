@@ -10,6 +10,7 @@ namespace WaterRising
     {
         public static int[] pos = { 500, 500 };
         public static byte[] env = ReadEnv();
+        static int last_move = 1000;
 
         public static void Move(int dir)
         {
