@@ -31,6 +31,7 @@ namespace WaterRising
             }
             else
             {
+                // The lazy man's exception
                 Console.WriteLine("Invalid move dir of {0}", dir);
                 Console.ReadLine();
             }

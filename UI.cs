@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace WaterRising
@@ -12,23 +13,22 @@ namespace WaterRising
         static int[] map_start = { 1, 53 };
         static int[] log_coords = { 1, 1 };
         static bool map_exists = false;
-        static StringBuilder frame = new StringBuilder(@"
-|---------------------------------------------------|-------------------------|
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
+        static StringBuilder frame = new StringBuilder(@"|---------------------------------------------------|-------------------------|
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
+|                                                   |
 |                                                   |-------------------------|
 |                                                   |                         |
 |                                                   |                         |
@@ -38,11 +38,20 @@ namespace WaterRising
 |                                                   |                         |
 |---------------------------------------------------|-------------------------|
 ");
+        static string[] log_data = new string[20];
         static StringBuilder blank_frame = new StringBuilder(frame.ToString());
+        static StringBuilder blank_log = new StringBuilder(log_data.ToString());
         public static void Update()
         {
-            Console.Clear();
+            Console.CursorLeft = 0;
+            Console.CursorTop = 0;
             Console.Write(frame.ToString());
+            for (byte log_entry = 0; log_entry < log_data.Length; log_entry++ )
+            {
+                Console.CursorTop = log_entry;
+                Console.CursorLeft = 1;
+                Console.Write(log_data[log_entry]);
+            }
             if (map_exists == true)
             {
                 DrawMap();
@@ -130,6 +139,8 @@ namespace WaterRising
                 }
                 if (Console.CursorTop < 24)
                 {
+                    Console.ResetColor();
+                    Console.Write("|");
                     Console.CursorTop++;
                 }
                 Console.CursorLeft = 53;
@@ -138,25 +149,11 @@ namespace WaterRising
             Console.CursorVisible = true;
         }
 
-        public static void Log(string str)
+        public static void Log(string text)
         {
-            char[] char_array = str.ToCharArray();
-            foreach (char c in char_array)
-            {
-                if (log_coords[1] > 50)
-                {
-                    log_coords[1] = 1 + log_coords[0];
-                    log_coords[0]++;
-                }
-                if (log_coords[0] >= 21)
-                {
-                    Clear();
-                }
-                frame[((log_coords[0] * 80) + log_coords[1] + 4)] = c;
-                log_coords[1]++;
-            }
-            log_coords[0]++;
-            log_coords[1] = log_coords[0];
+            Regex.Replace(text, "(.{" + 51 + "})", "$1" + Environment.NewLine);
+            log_data[log_coords[0]] = ' ' + text;
+            log_coords[0] += text.Split('\n').Length;
             Update();
         }
 
