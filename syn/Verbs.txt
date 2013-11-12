@@ -1,0 +1,8 @@
+﻿{climb, scale, ascend, clamber, go up, mount, rise, top}
+{mine, dig, quarry, excavate, bore, burrow, drill, gouge, shovel, sift, uncover, unearth, channel, tunnel, undermine}
+{gather, harvest, collect, pick, accumulate, amass, hoard, stockpile, bag, pluck, cut, chop, cleave, hack, mince}
+{eat, bite, masticate, chew, devour, dine, feed, ingest, inhale, nibble, swallow, digest, gorge, graze, lunch, munch, snack, sup, wolf down, wolf, chow down, feast, feast upon, gobble up, partake in}
+{attack, damage, charge, invade, slay, rape, strike, violate, raid, blitzkrieg, defile, mugg, offend, rush, storm, blow, bruise, harm, wound, ravage, outrage, anger, hurt, knockout, mutilate, ravage, ruin, wreck, slash, spear, molest, kill}
+{swim, bathe, dive, float, glide, paddle, submerge, wade, freestyle, backstroke, breaststroke,  butterfly, skinny-dip, skinnydip, go for a swim, go swimming, do wading}
+{fish, hunt, angle, bait, cast, chum, net, trawl, hook}
+{drink, gulp, chug, swallow, swig, taste}

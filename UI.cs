@@ -150,11 +150,6 @@ namespace WaterRising
             Console.CursorVisible = true;
         }
 
-        static IEnumerable<string> Split(string str, int chunkSize)
-        {
-            return Enumerable.Range(0, str.Length / chunkSize).Select(i => str.Substring(i * chunkSize, chunkSize));
-        }
-
         public static void Log(string text)
         {
             // Split the input string into 49 character substrings
@@ -213,24 +208,12 @@ namespace WaterRising
             else
             {
                 // Read whole line if not arrow key
-                readline_output = first_keypress.ToString() + Console.ReadLine();
+                readline_output = Console.ReadLine();
+                readline_output = first_keypress.Key + readline_output;
                 Console.CursorVisible = false;
                 Update();
             }
-            return readline_output;
-        }
-
-        public static void Clear()
-        {
-            // Clear log chars
-            for (int clear_count = 0; clear_count <= 12; clear_count++)
-            {
-                Console.Clear();
-                frame = new StringBuilder(blank_frame.ToString());
-                UpdateMap(Program.PlanetGen.GetPlanet(), Player.pos);
-                log_coords[0] = 1;
-                log_coords[1] = 1;
-            }
+            return readline_output.ToLower();
         }
     }
 }

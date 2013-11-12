@@ -11,7 +11,7 @@ namespace WaterRising
     {
         static Random RandGen = new Random();
         static Stopwatch watch = new Stopwatch();
-        public static PlanetGenerator PlanetGen = new PlanetGenerator();
+        public static WorldGenerator PlanetGen = new WorldGenerator();
         static UI ui = new UI();
         public static byte player_tile = 0;
         static void Main(string[] args)
@@ -60,7 +60,11 @@ namespace WaterRising
         {
             while (true)
             {
-                UI.ReadLine();
+                string command = UI.ReadLine();
+                if (command.Length >= 1)
+                {
+                    Player.HandleInput(command);
+                }
             }
         }
     }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WaterRising
 {
-    public class PlanetGenerator
+    public class WorldGenerator
     {
         static Random RandGen = new Random();
         static Stopwatch watch = new Stopwatch();
