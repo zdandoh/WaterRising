@@ -1,5 +1,5 @@
-﻿{tree, sapling, seedling, timber, wood, hardwood, softwood}
+﻿{tree, trees, sapling, seedling, timber, wood, hardwood, softwood}
 {mountain, hill, bluff, cliff, peak, ridge, volcano, alp, butte, crag, mound, precipice, dune, hillside, hilltop, slope, hillock, incline, knoll, mesa, mount, summit}
-{shrub, fern, hedge, plant, bramble, berry, brush, thicket, shrubbery}
+{shrub, fern, hedge, plant, bramble, berry, brush, bush, thicket, shrubbery, berries}
 {water, aqua, tears, h2o}
 {branch, branches, twig, twigs, kindling}

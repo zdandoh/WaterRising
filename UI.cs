@@ -64,7 +64,7 @@ namespace WaterRising
         public static void UpdateMap(byte[,] planet, int[] player)
         {
             map_exists = true;
-            int[] top_left = { player[0] - 8, player[1] - 13};
+            int[] top_left = { player[0] - 7, player[1] - 12};
             for (int row = 0; row < 15; row++)
             {
                 for (int col = 0; col < 25; col++)

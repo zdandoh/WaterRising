@@ -9,7 +9,6 @@ namespace WaterRising
     class Player
     {
         public static int[] pos = { 500, 500 };
-        public static byte[] env = ReadEnv();
         public static List<string[]> verbs = LoadWords("verbs");
         public static List<string[]> blocks = LoadWords("blocks");
         static int last_move = 1000;
@@ -38,18 +37,7 @@ namespace WaterRising
                 Console.WriteLine("Invalid move dir of {0}", dir);
                 Console.ReadLine();
             }
-            UI.UpdateMap(Program.PlanetGen.GetPlanet(), pos);
-        }
-
-        public static byte[] ReadEnv()
-        {
-            byte[] surroundings = new byte[5];
-            surroundings[0] = Program.PlanetGen.GetPlanet()[pos[0], pos[1]];
-            surroundings[1] = Program.PlanetGen.GetPlanet()[pos[0] - 1, pos[1]];
-            surroundings[2] = Program.PlanetGen.GetPlanet()[pos[0], pos[1] + 1];
-            surroundings[3] = Program.PlanetGen.GetPlanet()[pos[0] + 1, pos[1]];
-            surroundings[4] = Program.PlanetGen.GetPlanet()[pos[0], pos[1] - 1];
-            return surroundings;
+            UI.UpdateMap(Program.world, pos);
         }
 
         public static List<string[]> LoadWords(string file_name)
@@ -123,7 +111,7 @@ namespace WaterRising
                     block_group = block_result;
                 }
             }
-            UI.Log(String.Format("{0}, {1}", verb_group, block_group));
+            World.Interact(block_group, verb_group);
         }
     }
 }

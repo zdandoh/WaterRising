@@ -14,6 +14,7 @@ namespace WaterRising
         public static WorldGenerator PlanetGen = new WorldGenerator();
         static UI ui = new UI();
         public static byte player_tile = 0;
+        public static byte[,] world = new byte[1000, 1000];
         static void Main(string[] args)
         {
             // Setup adventure, yo
@@ -35,7 +36,7 @@ namespace WaterRising
                 Console.ReadLine();
             }
             UI.Update();
-            byte[,] world = PlanetGen.MakePlanet();
+            world = PlanetGen.MakePlanet();
             UI.UpdateMap(world, Player.pos);
             UI.Log("Arrived at planet!");
 

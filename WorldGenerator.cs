@@ -22,11 +22,6 @@ namespace WaterRising
             byte TREE = 4;
         }
 
-        public byte[,] GetPlanet()
-        {
-            return planet;
-        }
-
         public byte[,] MakePlanet()
         {
             GetBlockIDs();
