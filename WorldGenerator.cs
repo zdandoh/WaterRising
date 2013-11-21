@@ -14,17 +14,21 @@ namespace WaterRising
         static int size = 1000;
         public static byte[,] planet = new byte[size, size];
 
-        static void GetBlockIDs()
+        static void RegisterBlock(byte block_id, string name, bool is_solid)
         {
-            byte MOUNTAIN = 1;
-            byte WATER = 2;
-            byte SHRUB = 3;
-            byte TREE = 4;
+            Block new_block = new Block();
+            new_block.id = block_id;
+            new_block.name = name;
+            new_block.is_solid = is_solid;
+            World.blocks.Add(new_block);
         }
 
         public byte[,] MakePlanet()
         {
-            GetBlockIDs();
+            RegisterBlock(1, "mountain", true);
+            RegisterBlock(2, "water", true);
+            RegisterBlock(3, "bush", false);
+            RegisterBlock(4, "tree", false);
             UI.Log("Placing dirt...");
             UI.Log("Landscaping...");
             planet = RandScatter(planet, 1, 10);
@@ -148,5 +152,12 @@ namespace WaterRising
             planet = MixArray(planet, mask);
             return planet;
         }
+    }
+
+    public class Block
+    {
+        public byte id;
+        public string name;
+        public bool is_solid;
     }
 }

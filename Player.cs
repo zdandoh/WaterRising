@@ -9,12 +9,14 @@ namespace WaterRising
     class Player
     {
         public static int[] pos = { 500, 500 };
+        public static string last_command = "";
         public static List<string[]> verbs = LoadWords("verbs");
         public static List<string[]> blocks = LoadWords("blocks");
         static int last_move = 1000;
 
         public static void Move(int dir)
         {
+            int[] old_pos = (int[])pos.Clone();
             if (dir == 1)
             {
                 pos[0]--;
@@ -36,6 +38,18 @@ namespace WaterRising
                 // The lazy man's exception
                 Console.WriteLine("Invalid move dir of {0}", dir);
                 Console.ReadLine();
+            }
+            // Check if we're trying to move into a solid block
+            byte new_player_blockid = Program.world[pos[0], pos[1]];
+            foreach(Block block in World.blocks)
+            {
+                if (new_player_blockid == block.id)
+                {
+                    if (block.is_solid == true)
+                    {
+                        pos = old_pos;
+                    }
+                }
             }
             UI.UpdateMap(Program.world, pos);
         }
@@ -94,6 +108,15 @@ namespace WaterRising
 
         public static void HandleInput(string command)
         {
+            // Check if it's a special command
+            if (command == "r")
+            {
+                command = last_command;
+            }
+            else
+            {
+                last_command = command;
+            }
             // Extract verb and object, really frickin' breakable atm
             string[] words = command.Split(' ');
             int verb_group = -1;

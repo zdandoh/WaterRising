@@ -9,6 +9,7 @@ namespace WaterRising
     // Utilities for interacting with the world array
     class World
     {
+        public static List<Block> blocks = new List<Block>();
         public static byte[] GetSurround(int[] loc)
         {
             byte[] surroundings = { 0, 0, 0, 0 };
@@ -36,6 +37,7 @@ namespace WaterRising
                     }
                 }
             }
+            UI.UpdateMap(Program.world, Player.pos);
             return "";
         }
 
@@ -58,7 +60,7 @@ namespace WaterRising
             int[] ppos = Player.pos;
             byte[] surr = GetSurround(ppos);
             int[] return_list = {-1, -1};
-            for (int count = 1; count < surr.Length; count++ )
+            for (int count = 1; count < surr.Length + 1; count++ )
             {
                 if (surr[count - 1] == block)
                 {
@@ -75,12 +77,12 @@ namespace WaterRising
                     }
                     else if (count == 3)
                     {
-                        ppos[0] -= 1;
+                        ppos[0] += 1;
                         break;
                     }
                     else if (count == 4)
                     {
-                        ppos[1] += 1;
+                        ppos[1] -= 1;
                         break;
                     }
                 }
