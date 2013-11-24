@@ -9,6 +9,8 @@ namespace WaterRising
     class Player
     {
         public static int[] pos = { 500, 500 };
+        public static int health = 1000;
+        public static int hunger = 1000;
         public static string last_command = "";
         public static List<string[]> verbs = LoadWords("verbs");
         public static List<string[]> blocks = LoadWords("blocks");
@@ -51,6 +53,7 @@ namespace WaterRising
                     }
                 }
             }
+            hunger -= 2;
             UI.UpdateMap(Program.world, pos);
         }
 
@@ -76,7 +79,7 @@ namespace WaterRising
             return word_container;
         }
 
-        public static int LookupWord(string str, string type)
+        public static int LookupWord(string str, string type = "verb")
         {
             List<string[]> all_cats = new List<string[]>();
             if (type == "verb")
@@ -112,6 +115,19 @@ namespace WaterRising
             if (command == "r")
             {
                 command = last_command;
+            }
+            else if (command == "save")
+            {
+                // Save the game world and state
+                UI.Log("Saving...");
+                Program.Save();
+                UI.Log("Saved!");
+            }
+            else if (command == "load")
+            {
+                // Load the latest world
+                Program.Load();
+                UI.Log("Loaded!");
             }
             else
             {

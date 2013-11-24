@@ -31,9 +31,9 @@ namespace WaterRising
 |                                                   |
 |                                                   |-------------------------|
 |                                                   |                         |
+|                                                   | Health:
 |                                                   |                         |
-|                                                   |                         |
-|                                                   |                         |
+|                                                   | Hunger:
 |---------------------------------------------------|                         |
 |                                                   |                         |
 |---------------------------------------------------|-------------------------|
@@ -57,8 +57,33 @@ namespace WaterRising
             {
                 DrawMap();
             }
+            UpdateStatus();
             Console.CursorLeft = 1;
             Console.CursorTop = 22;
+        }
+
+        public static void UpdateStatus()
+        {
+            // Update health
+            Console.SetCursorPosition(62, 18);
+            Console.Write("               ");
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(62, 18);
+            for (int lentils_drawn = 0; lentils_drawn < (Player.health / 65); lentils_drawn++)
+                Console.Write(" ");
+            Console.ResetColor();
+            Console.SetCursorPosition(77, 18);
+            Console.Write(" |");
+            // Update hunger
+            Console.SetCursorPosition(62, 20);
+            Console.Write("               ");
+            Console.BackgroundColor = ConsoleColor.DarkCyan;
+            Console.SetCursorPosition(62, 20);
+            for (int lentils_drawn = 0; lentils_drawn < (Player.hunger / 65); lentils_drawn++)
+                Console.Write(" ");
+            Console.ResetColor();
+            Console.SetCursorPosition(77, 20);
+            Console.Write(" |");
         }
 
         public static void UpdateMap(byte[,] planet, int[] player)

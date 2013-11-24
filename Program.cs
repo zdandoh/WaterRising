@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace WaterRising
 {
@@ -55,6 +56,56 @@ namespace WaterRising
                 place++;
             }
             Console.Write("\n");
+        }
+
+        public static byte[][] GetJaggedArray(byte[,] mult_array)
+        {
+            byte[][] jag_arr = new byte[1000][];
+            for (int col = 0; col < 1000; col++)
+            {
+                jag_arr[col] = new byte[1000];
+                for (int row = 0; row < 1000; row++)
+                {
+                    jag_arr[col][row] = mult_array[col, row];
+                }
+            }
+            return jag_arr;
+        }
+
+        public static byte[,] GetMultiArray(byte[][] jag_arr)
+        {
+            byte[,] multi_arr = new byte[1000, 1000];
+            for (int col = 0; col < 1000; col++)
+            {
+                for (int row = 0; row < 1000; row++)
+                {
+                    multi_arr[col, row] = jag_arr[col][row];
+                }
+            }
+            return multi_arr;
+        } 
+
+
+        public static void Save()
+        {
+            // Save world by converting to byte[][]
+            byte[][] double_world = GetJaggedArray(world);
+            var save_file = new System.Xml.Serialization.XmlSerializer(typeof(byte[][]));
+            using (FileStream stream = new FileStream(@"world.xml", FileMode.OpenOrCreate))
+            {
+                save_file.Serialize(stream, double_world);
+            }
+        }
+
+        public static void Load()
+        {
+            // Load world and convert back to byte[,]
+            var save_file = new System.Xml.Serialization.XmlSerializer(typeof(byte[][]));
+            using (FileStream stream = new FileStream(@"world.xml", FileMode.OpenOrCreate))
+            {
+                byte[][] load_world = save_file.Deserialize(stream) as byte[][];
+                world = GetMultiArray(load_world);
+            }
         }
 
         public static void PlayGame()

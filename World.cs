@@ -27,13 +27,38 @@ namespace WaterRising
             if (block == 1)
             {
                 // MOUNTAIN
-                if (action_group == 0)
+                if (action_group == Player.LookupWord("climb"))
                 {
-                    // climb
                     if (IsPlayerAdjacent(1))
                     {
                         Player.pos = GetAdjacentBlock(1);
+                        Player.hunger -= 10;
                         UI.Log("You climb the nearest mountain");
+                    }
+                }
+            }
+            else if (block == 2)
+            {
+                // WATER
+                if (action_group == Player.LookupWord("swim"))
+                {
+                    UI.Log("The water is too cold");
+                }
+            }
+            else if (block == 3)
+            {
+                // BERRY BUSH
+                if (action_group == Player.LookupWord("eat"))
+                {
+                    if (IsPlayerAdjacent(3))
+                    {
+                        Player.hunger += GetBlock(3).feed;
+                        RemoveAdjacent(3);
+                        UI.Log("You pick the bush clean");
+                    }
+                    else
+                    {
+                        UI.Log("You see no berries nearby");
                     }
                 }
             }
@@ -53,6 +78,12 @@ namespace WaterRising
                 }
             }
             return next_to;
+        }
+
+        public static void RemoveAdjacent(int block)
+        {
+            int[] block_coords = GetAdjacentBlock(block);
+            Program.world[block_coords[0], block_coords[1]] = 0;
         }
 
         public static int[] GetAdjacentBlock(int block)
@@ -88,6 +119,29 @@ namespace WaterRising
                 }
             }
             return ppos;
+        }
+        public static Block GetBlock(byte id)
+        {
+            foreach (Block block in World.blocks)
+            {
+                if (block.id == id)
+                {
+                    return block;
+                }
+            }
+            return null;
+        }
+
+        public static Block GetBlock(string name)
+        {
+            foreach (Block block in World.blocks)
+            {
+                if (block.name == name)
+                {
+                    return block;
+                }
+            }
+            return null;
         }
     }
 }
