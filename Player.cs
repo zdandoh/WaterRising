@@ -11,9 +11,11 @@ namespace WaterRising
         public static int[] pos = { 500, 500 };
         public static int health = 1000;
         public static int hunger = 1000;
+        public static List<Item> inventory = new List<Item>();
         public static string last_command = "";
         public static List<string[]> verbs = LoadWords("verbs");
         public static List<string[]> blocks = LoadWords("blocks");
+        public static List<string[]> items = LoadWords("items");
         static int last_move = 1000;
 
         public static void Move(int dir)
@@ -57,6 +59,37 @@ namespace WaterRising
             UI.UpdateMap(Program.world, pos);
         }
 
+        public static void AddItem(string name, int amount = 1)
+        {
+            int id = LookupWord(name, "item");
+            int already_have = HasItem(id);
+            if (already_have != -1)
+            {
+                inventory[already_have].qty += amount;
+            }
+            else
+            {
+                Item to_add = new Item();
+                to_add.name = name;
+                to_add.id = LookupWord(name, "item");
+                to_add.qty = amount;
+                inventory.Add(to_add);
+            }
+        }
+
+        public static int HasItem(int id)
+        {
+            int return_index = -1;
+            for (int item_no = 0; item_no < inventory.Count; item_no++)
+            {
+                if (inventory[item_no].id == id)
+                {
+                    return_index = item_no;
+                }
+            }
+            return return_index;
+        }
+
         public static List<string[]> LoadWords(string file_name)
         {
             //Split apart verbs & block synonyms
@@ -69,6 +102,10 @@ namespace WaterRising
             else if (file_name == "blocks")
             {
                 rec_file = Properties.Resources.Blocks;
+            }
+            else if (file_name == "items")
+            {
+                rec_file = Properties.Resources.items;
             }
             string[] actions = rec_file.Replace("{", "").Split('}'); // Retrives seperate arrays of all possible actions
             foreach (string synonyms in actions)
@@ -89,6 +126,10 @@ namespace WaterRising
             else if (type == "block")
             {
                 all_cats = blocks;
+            }
+            else if (type == "item")
+            {
+                all_cats = items;
             }
             else
             {

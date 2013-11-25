@@ -28,7 +28,7 @@ namespace WaterRising
         {
             RegisterBlock(1, "mountain", true, "Atop a tall mountain");
             RegisterBlock(2, "water", true, "Freezing cold water");
-            RegisterBlock(3, "bush", false, "A berry bush, heavy with nature's bounty");
+            RegisterBlock(3, "berry", false, "A berry bush, heavy with nature's bounty");
             World.GetBlock(3).feed = 100;
             RegisterBlock(4, "tree", false, "A tall evergreen towers before you");
         }
@@ -168,5 +168,12 @@ namespace WaterRising
         public bool is_solid;
         public int feed = 0;
         public string walk_message = "undefined";
+    }
+
+    public class Item
+    {
+        public string name;
+        public int id;
+        public int qty;
     }
 }

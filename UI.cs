@@ -230,6 +230,15 @@ namespace WaterRising
             {
                 Player.Move(4);
             }
+            else if (first_keypress.Key == ConsoleKey.D1)
+            {
+                // Show inventory
+                UI.Log("Inventory Contents:");
+                foreach (Item item in Player.inventory)
+                {
+                    UI.Log(String.Format("{0}, qty {1}", item.name, item.qty));
+                }
+            }
             else
             {
                 // Read whole line if not arrow key

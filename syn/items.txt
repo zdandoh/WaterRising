@@ -1,0 +1,3 @@
+﻿{}
+{branch, branches, twig, twigs, kindling}
+{berry, berries}

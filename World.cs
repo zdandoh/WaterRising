@@ -10,6 +10,7 @@ namespace WaterRising
     class World
     {
         public static List<Block> blocks = new List<Block>();
+        public static Random Rand = new Random();
         public static byte[] GetSurround(int[] loc)
         {
             byte[] surroundings = { 0, 0, 0, 0 };
@@ -48,17 +49,38 @@ namespace WaterRising
             else if (block == 3)
             {
                 // BERRY BUSH
-                if (action_group == Player.LookupWord("eat"))
+                if (IsPlayerAdjacent(3))
                 {
-                    if (IsPlayerAdjacent(3))
+                    if (action_group == Player.LookupWord("eat"))
                     {
                         Player.hunger += GetBlock(3).feed;
                         RemoveAdjacent(3);
                         UI.Log("You pick the bush clean");
                     }
-                    else
+                    else if (action_group == Player.LookupWord("pick"))
                     {
-                        UI.Log("You see no berries nearby");
+                        // Add berries to player inventory
+                        Player.AddItem("berry", Rand.Next(3, 5));
+                        RemoveAdjacent(3);
+                        UI.Log("You pick the bush clean");
+                    }
+                }
+                else
+                {
+                    UI.Log("You see no berries nearby");
+                }
+            }
+            else if (block == 4)
+            {
+                // TREE
+                if (IsPlayerAdjacent(4))
+                {
+                    if (action_group == Player.LookupWord("gather"))
+                    {
+                        // pick up branches
+                        Player.AddItem("branch", 1);
+                        Player.hunger -= 20;
+                        UI.Log("You gather a few branches from a nearby tree");
                     }
                 }
             }

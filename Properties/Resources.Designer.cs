@@ -61,14 +61,26 @@ namespace WaterRising.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {tree, sapling, seedling, timber, wood, hardwood, softwood}
+        ///   Looks up a localized string similar to {}
         ///{mountain, hill, bluff, cliff, peak, ridge, volcano, alp, butte, crag, mound, precipice, dune, hillside, hilltop, slope, hillock, incline, knoll, mesa, mount, summit}
-        ///{shrub, fern, hedge, plant, bramble, berry, brush, thicket, shrubbery}
-        ///{water, aqua, tears, h2o}.
+        ///{water, aqua, tears, h2o}
+        ///{shrub, fern, hedge, plant, bramble, berry, brush, bush, thicket, shrubbery, berries}
+        ///{tree, trees, sapling, seedling, timber, wood, hardwood, softwood}.
         /// </summary>
         internal static string Blocks {
             get {
                 return ResourceManager.GetString("Blocks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {}
+        ///{branch, branches, twig, twigs, kindling}
+        ///{berry, berries}.
+        /// </summary>
+        internal static string items {
+            get {
+                return ResourceManager.GetString("items", resourceCulture);
             }
         }
         

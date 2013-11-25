@@ -121,6 +121,9 @@
   <data name="Blocks" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\syn\blocks.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="items" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\syn\items.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="Verbs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\syn\verbs.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>

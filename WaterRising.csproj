@@ -116,6 +116,7 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <Content Include="syn\blocks.txt" />
+    <Content Include="syn\Items.txt" />
     <Content Include="syn\verbs.txt" />
   </ItemGroup>
   <ItemGroup>
