@@ -120,33 +120,12 @@ namespace WaterRising
                         Console.BackgroundColor = ConsoleColor.DarkGreen;
                         map_raw = ' ';
                     }
-                    else if (map_raw == '1')
+                    else if (map_raw != '0')
                     {
-                        // MOUNTAIN
-                        Console.BackgroundColor = ConsoleColor.DarkGreen;
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        map_raw = '▲';
-                    }
-                    else if (map_raw == '2')
-                    {
-                        // WATER
-                        Console.BackgroundColor = ConsoleColor.DarkCyan;
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        map_raw = '~';
-                    }
-                    else if (map_raw == '3')
-                    {
-                        // SHRUB
-                        Console.BackgroundColor = ConsoleColor.DarkGreen;
-                        Console.ForegroundColor = ConsoleColor.Magenta;
-                        map_raw = '♣';
-                    }
-                    else if (map_raw == '4')
-                    {
-                        // TREE
-                        Console.BackgroundColor = ConsoleColor.DarkGreen;
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        map_raw = '↑';
+                        Block block = World.GetBlock(Byte.Parse(map_raw.ToString()));
+                        Console.BackgroundColor = block.bg_color;
+                        Console.ForegroundColor = block.fg_color;
+                        map_raw = block.face;
                     }
                     else
                     {

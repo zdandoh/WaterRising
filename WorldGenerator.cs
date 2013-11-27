@@ -14,23 +14,27 @@ namespace WaterRising
         static int size = 1000;
         public static byte[,] planet = new byte[size, size];
 
-        static void RegisterBlock(byte block_id, string name, bool is_solid, string walk_message = "undefined")
+        static void RegisterBlock(byte block_id, string name, bool is_solid, char face, ConsoleColor bg_color, ConsoleColor fg_color, string walk_message = "undefined")
         {
             Block new_block = new Block();
             new_block.id = block_id;
             new_block.name = name;
             new_block.is_solid = is_solid;
+            new_block.face = face;
+            new_block.bg_color = bg_color;
+            new_block.fg_color = fg_color;
             new_block.walk_message = walk_message;
             World.blocks.Add(new_block);
         }
 
         static void RegisterBlocks()
         {
-            RegisterBlock(1, "mountain", true, "Atop a tall mountain");
-            RegisterBlock(2, "water", true, "Freezing cold water");
-            RegisterBlock(3, "berry", false, "A berry bush, heavy with nature's bounty");
+            RegisterBlock(1, "mountain", true, '▲', ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "Atop a tall mountain");
+            RegisterBlock(2, "water", true, '~', ConsoleColor.DarkCyan, ConsoleColor.Cyan, "Freezing cold water");
+            RegisterBlock(3, "berry", false, '♣', ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A berry bush, heavy with nature's bounty");
             World.GetBlock(3).feed = 100;
-            RegisterBlock(4, "tree", false, "A tall evergreen towers before you");
+            RegisterBlock(4, "tree", false, '↑', ConsoleColor.DarkGreen, ConsoleColor.Green, "A tall evergreen towers before you");
+            RegisterBlock(5, "farm", false, '░', ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "A small patch of farmland, created with love and malnutrition");
         }
 
         public byte[,] MakePlanet()
@@ -166,6 +170,9 @@ namespace WaterRising
         public byte id;
         public string name;
         public bool is_solid;
+        public ConsoleColor bg_color;
+        public ConsoleColor fg_color;
+        public char face;
         public int feed = 0;
         public string walk_message = "undefined";
     }
