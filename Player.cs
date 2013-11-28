@@ -62,7 +62,7 @@ namespace WaterRising
         public static void AddItem(string name, int amount = 1)
         {
             int id = LookupWord(name, "item");
-            int already_have = HasItem(id);
+            int already_have = HasItem(name);
             if (already_have != -1)
             {
                 inventory[already_have].qty += amount;
@@ -77,8 +77,26 @@ namespace WaterRising
             }
         }
 
-        public static int HasItem(int id)
+        public static bool RemoveItem(string name, int count = 1)
         {
+            bool success = false;
+            int item_count = CountItem(name);
+            if (item_count == count)
+            {
+                inventory.RemoveAt(HasItem(name));
+                success = true;
+            }
+            else if (item_count > count)
+            {
+                inventory[HasItem(name)].qty -= count;
+                success = true;
+            }
+            return success;
+        }
+
+        public static int HasItem(string name, int count = 1)
+        {
+            int id = LookupWord(name, "item");
             int return_index = -1;
             for (int item_no = 0; item_no < inventory.Count; item_no++)
             {
@@ -88,6 +106,17 @@ namespace WaterRising
                 }
             }
             return return_index;
+        }
+
+        public static int CountItem(string name)
+        {
+            int count = 0;
+            int index = HasItem(name);
+            if (index > -1)
+            {
+                count = inventory[index].qty;
+            }
+            return count;
         }
 
         public static List<string[]> LoadWords(string file_name)

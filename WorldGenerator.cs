@@ -34,7 +34,7 @@ namespace WaterRising
             RegisterBlock(3, "berry", false, '♣', ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A berry bush, heavy with nature's bounty");
             World.GetBlock(3).feed = 100;
             RegisterBlock(4, "tree", false, '↑', ConsoleColor.DarkGreen, ConsoleColor.Green, "A tall evergreen towers before you");
-            RegisterBlock(5, "farm", false, '░', ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "A small patch of farmland, created with love and malnutrition");
+            RegisterBlock(5, "farm", false, '░', ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A small patch of farmland, created with love and malnutrition");
         }
 
         public byte[,] MakePlanet()

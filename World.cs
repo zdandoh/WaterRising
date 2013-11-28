@@ -84,6 +84,22 @@ namespace WaterRising
                     }
                 }
             }
+            else if (block == 5)
+            {
+                // Farm
+                if (action_group == Player.LookupWord("plant"))
+                {
+                    if (Player.RemoveItem("berry", 2))
+                    {
+                        Program.world[Player.pos[0], Player.pos[1]] = 5;
+                        UI.Log("You plant a small berry farm");
+                    }
+                    else
+                    {
+                        UI.Log("Not enough berries to create a farm!");
+                    }
+                }
+            }
             UI.UpdateMap(Program.world, Player.pos);
             return "";
         }
@@ -117,7 +133,7 @@ namespace WaterRising
             {
                 if (surr[count - 1] == block)
                 {
-                    // THIS IS AWFUL STYLE I HATE THIS WHOLE FUNCTION
+                    // THIS IS AWFUL I HATE THIS WHOLE FUNCTION
                     if (count == 1)
                     {
                         ppos[0] -= 1;
