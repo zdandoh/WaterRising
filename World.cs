@@ -100,6 +100,24 @@ namespace WaterRising
                     }
                 }
             }
+            else if (block == 6)
+            {
+                // Rock
+                if (IsPlayerAdjacent(6))
+                {
+                    if (action_group == Player.LookupWord("gather"))
+                    {
+                        UI.Log("You pry free a lose piece of rock");
+                        Player.AddItem("rock");
+                    }
+                    else if (action_group == Player.LookupWord("climb"))
+                    {
+                        Player.pos = GetAdjacentBlock(6);
+                        Player.hunger -= 10;
+                        UI.Log("You climb atop the large boulder");
+                    }
+                }
+            }
             UI.UpdateMap(Program.world, Player.pos);
             return "";
         }

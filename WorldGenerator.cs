@@ -35,6 +35,7 @@ namespace WaterRising
             World.GetBlock(3).feed = 100;
             RegisterBlock(4, "tree", false, '↑', ConsoleColor.DarkGreen, ConsoleColor.Green, "A tall evergreen towers before you");
             RegisterBlock(5, "farm", false, '░', ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A small patch of farmland, created with love and malnutrition");
+            RegisterBlock(6, "stone", true, '▲', ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A large outcropping of stone");
         }
 
         public byte[,] MakePlanet()
@@ -44,6 +45,7 @@ namespace WaterRising
             UI.Log("Landscaping...");
             planet = RandScatter(planet, 1, 10);
             planet = RandScatter(planet, 4, 7);
+            planet = RandScatter(planet, 6, 50);
             UI.Log("Adding shrubbery...");
             planet = RandScatter(planet, 3, 1000);
             UI.Log("Growing forest...");

@@ -4,3 +4,4 @@
 {shrub, fern, hedge, plant, bramble, berry, brush, bush, thicket, shrubbery, berries}
 {tree, trees, sapling, seedling, timber, wood, hardwood, softwood, branch, branches, twig, twigs, kindling}
 {farm, field, orchard, plantation}
+{stone, boulder, rock}
