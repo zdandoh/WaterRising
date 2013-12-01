@@ -207,11 +207,13 @@ namespace WaterRising
             string[] words = command.Split(' ');
             int verb_group = -1;
             int block_group = -1;
+            int item_group = -1;
             foreach (string word in words)
             {
                 int verb_result = LookupWord(word, "verb");
                 int block_result = LookupWord(word, "block");
-                if (verb_result > -1)
+                int item_result = LookupWord(word, "item");
+                if (verb_result > -1 & verb_group == -1)
                 {
                     verb_group = verb_result;
                 }
@@ -219,8 +221,12 @@ namespace WaterRising
                 {
                     block_group = block_result;
                 }
+                if (item_result > -1)
+                {
+                    item_group = item_result;
+                }
             }
-            World.Interact(block_group, verb_group);
+            World.Interact(block_group, verb_group, item_group);
         }
     }
 }

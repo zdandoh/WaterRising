@@ -27,6 +27,17 @@ namespace WaterRising
             World.blocks.Add(new_block);
         }
 
+        static void RegisterRecipe(string product, params string[] ingredients)
+        {
+            Recipe new_recipe = new Recipe();
+            new_recipe.product = product;
+            foreach (string ingredient in ingredients)
+            {
+                new_recipe.ingredients.Add(ingredient);
+            }
+            World.recipes.Add(new_recipe);
+        }
+
         static void RegisterBlocks()
         {
             RegisterBlock(1, "mountain", true, '▲', ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "Atop a tall mountain");
@@ -38,9 +49,16 @@ namespace WaterRising
             RegisterBlock(6, "stone", true, '▲', ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A large outcropping of stone");
         }
 
+        static void RegisterRecipes()
+        {
+            RegisterRecipe("axe", "branch", "stone");
+            RegisterRecipe("pick", "branch", "stone");
+        }
+
         public byte[,] MakePlanet()
         {
             RegisterBlocks();
+            RegisterRecipes();
             UI.Log("Placing dirt...");
             UI.Log("Landscaping...");
             planet = RandScatter(planet, 1, 10);
@@ -184,5 +202,36 @@ namespace WaterRising
         public string name;
         public int id;
         public int qty;
+    }
+
+    public class Recipe
+    {
+        public string product;
+        public List<string> ingredients = new List<string>();
+
+        public bool Craft()
+        {
+            // This function breaks if multiple items are required for crafting
+            bool success = true;
+            foreach (string ingredient in ingredients)
+            {
+                if (Player.HasItem(ingredient) == -1)
+                {
+                    success = false;
+                    UI.Log(String.Format("You cannot craft {0}, you don't have {1}", product, ingredient));
+                    break;
+                }
+            }
+            if (success)
+            {
+                foreach (string ingredient in ingredients)
+                {
+                    Player.RemoveItem(ingredient);
+                }
+                UI.Log(String.Format("Crafted {0}", product));
+                Player.AddItem(product);
+            }
+            return success;
+        }
     }
 }

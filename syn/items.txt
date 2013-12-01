@@ -2,3 +2,5 @@
 {branch, branches, twig, twigs, kindling}
 {berry, berries}
 {stone, rock, sheetrock}
+{axe, ax}
+{pick, pickaxe}

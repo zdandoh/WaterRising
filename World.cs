@@ -10,6 +10,7 @@ namespace WaterRising
     class World
     {
         public static List<Block> blocks = new List<Block>();
+        public static List<Recipe> recipes = new List<Recipe>();
         public static Random Rand = new Random();
         public static byte[] GetSurround(int[] loc)
         {
@@ -22,10 +23,37 @@ namespace WaterRising
             return surroundings;
         }
 
-        public static string Interact(int block, int action_group)
+        public static string Interact(int block, int action_group, int item_group)
         {
-            string response = "";
-            if (block == 1)
+            if (action_group == Player.LookupWord("swim"))
+            {
+                if (IsPlayerAdjacent(2))
+                {
+                    UI.Log("The water is frigid, swimming is impossible");
+                }
+                else
+                {
+                    UI.Log("There is nothing to swim in");
+                }
+            }
+            else if (action_group == Player.LookupWord("craft"))
+            {
+                // CRAFTING
+                bool tried_to_craft = false;
+                foreach (Recipe recipe in World.recipes)
+                {
+                    if (item_group == Player.LookupWord(recipe.product, "item"))
+                    {
+                        recipe.Craft();
+                        tried_to_craft = true;
+                    }
+                }
+                if (tried_to_craft == false)
+                {
+                    UI.Log("It is impossible to make that");
+                }
+            }
+            else if (block == 1)
             {
                 // MOUNTAIN
                 if (action_group == Player.LookupWord("climb"))
@@ -142,6 +170,16 @@ namespace WaterRising
             Program.world[block_coords[0], block_coords[1]] = 0;
         }
 
+        public static bool Craft(string name)
+        {
+            bool success = false;
+            if (Player.LookupWord(name) == Player.LookupWord("axe"))
+            {
+                
+            }
+            return success;
+        }
+
         public static int[] GetAdjacentBlock(int block)
         {
             int[] ppos = Player.pos;
@@ -195,6 +233,18 @@ namespace WaterRising
                 if (block.name == name)
                 {
                     return block;
+                }
+            }
+            return null;
+        }
+
+        public static Recipe GetRecipe(string name)
+        {
+            foreach (Recipe recipe in recipes)
+            {
+                if (recipe.product == name)
+                {
+                    return recipe;
                 }
             }
             return null;
