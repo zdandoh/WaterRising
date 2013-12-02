@@ -9,7 +9,7 @@ namespace WaterRising
 {
     public class WorldGenerator
     {
-        static Random RandGen = new Random();
+        public static Random RandGen = new Random();
         static Stopwatch watch = new Stopwatch();
         static int size = 1000;
         public static byte[,] planet = new byte[size, size];

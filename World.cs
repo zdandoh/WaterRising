@@ -11,6 +11,7 @@ namespace WaterRising
     {
         public static List<Block> blocks = new List<Block>();
         public static List<Recipe> recipes = new List<Recipe>();
+        public static List<int[]> farms = new List<int[]>();
         public static Random Rand = new Random();
         public static byte[] GetSurround(int[] loc)
         {
@@ -120,6 +121,7 @@ namespace WaterRising
                     if (Player.RemoveItem("berry", 2))
                     {
                         Program.world[Player.pos[0], Player.pos[1]] = 5;
+                        farms.Add(new int[] {Player.pos[0], Player.pos[1]});
                         UI.Log("You plant a small berry farm");
                     }
                     else
@@ -162,6 +164,21 @@ namespace WaterRising
                 }
             }
             return next_to;
+        }
+
+        public static void Update()
+        {
+            for (int farm_count = 0; farm_count < farms.Count; farm_count++)
+            {
+                // Iterate through every farm
+                if (Rand.Next(0, 70) == 2)
+                {
+                    // Farm grows
+                    int[] farm_location = farms[farm_count];
+                    Program.world[farm_location[0], farm_location[1]] = 3;
+                    farms.RemoveAt(farm_count);
+                }
+            }
         }
 
         public static void RemoveAdjacent(int block)

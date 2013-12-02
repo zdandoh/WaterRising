@@ -12,6 +12,7 @@ namespace WaterRising
     {
         static Random RandGen = new Random();
         static Stopwatch watch = new Stopwatch();
+        public static Stopwatch TickTimer = new Stopwatch();
         public static WorldGenerator PlanetGen = new WorldGenerator();
         static UI ui = new UI();
         public static byte player_tile = 0;
@@ -23,10 +24,11 @@ namespace WaterRising
             const bool DEV = true;
             Console.BufferHeight = 25;
             Console.CursorVisible = false;
+            TickTimer.Start();
             Console.Title = String.Format("Water Rising v{0}", VERSION);
             if (DEV == false)
             {
-                Console.WriteLine("CMDRPG v{0}", VERSION);
+                Console.WriteLine("Water Rising v{0}", VERSION);
                 SlowWrite("What's your name? ");
                 string name = Console.ReadLine();
                 SlowWrite(String.Format("Okay, so your name is {0}? Great!", name));
@@ -56,6 +58,13 @@ namespace WaterRising
                 place++;
             }
             Console.Write("\n");
+        }
+
+        public static void Log(string info)
+        {
+            System.IO.StreamWriter file = new System.IO.StreamWriter("log.txt", true);
+            file.WriteLine(info);
+            file.Close();
         }
 
         public static byte[][] GetJaggedArray(byte[,] mult_array)

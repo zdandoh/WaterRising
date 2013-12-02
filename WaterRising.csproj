@@ -94,6 +94,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="README.md" />
     <None Include="WaterRising_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

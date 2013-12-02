@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,6 +14,7 @@ namespace WaterRising
         static int[] map_start = { 1, 53 };
         static int[] log_coords = { 1, 1 };
         static bool map_exists = false;
+        static int last_tick = 0;
         static StringBuilder frame = new StringBuilder(@"|---------------------------------------------------|-------------------------|
 |                                                   |
 |                                                   |
@@ -43,11 +45,18 @@ namespace WaterRising
         static StringBuilder blank_log = new StringBuilder(log_data.ToString());
         public static void Update()
         {
+            //World tick, once every 5 seconds
+            int timer_result = (int)(Program.TickTimer.ElapsedMilliseconds / 5000);
+            for (int tick_count = 0; tick_count < timer_result; tick_count++)
+            {
+                World.Update();
+                Program.TickTimer.Restart();
+            }
             Console.CursorLeft = 0;
             Console.CursorTop = 0;
             Console.Write(frame.ToString());
 
-            for (int log_entry = 1; log_entry < log_data.Count; log_entry++ )
+            for (int log_entry = 1; log_entry < log_data.Count; log_entry++)
             {
                 Console.CursorTop = log_entry;
                 Console.CursorLeft = 1;

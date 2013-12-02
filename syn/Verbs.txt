@@ -6,5 +6,5 @@
 {swim, bathe, dive, float, glide, paddle, submerge, wade, freestyle, backstroke, breaststroke,  butterfly, skinny-dip, skinnydip, go for a swim, go swimming, do wading}
 {fish, hunt, angle, bait, cast, chum, net, trawl, hook}
 {drink, gulp, chug, swallow, swig, taste}
-{build, construct, erect, make, fabricate, sow, plant}
-{make, craft, create, assemble}
+{build, construct, erect, fabricate, sow, plant}
+{make, craft, create, assemble, make}
