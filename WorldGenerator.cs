@@ -47,6 +47,7 @@ namespace WaterRising
             RegisterBlock(4, "tree", false, '↑', ConsoleColor.DarkGreen, ConsoleColor.Green, "A tall evergreen towers before you");
             RegisterBlock(5, "farm", false, '░', ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A small patch of farmland, created with love and malnutrition");
             RegisterBlock(6, "stone", true, '▲', ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A large outcropping of stone");
+            RegisterBlock(7, "floodwater", true, '~', ConsoleColor.Blue, ConsoleColor.DarkCyan, "Floodwaters, cold as ice");
         }
 
         static void RegisterRecipes()
@@ -74,6 +75,17 @@ namespace WaterRising
             planet = AddBlob(planet, 1, 100, 1000);
             UI.Log("Smoothening...");
             // Change all with 4 around to those who surround it
+            UI.Log("Starting flood...");
+            for (int row = 0; row < planet.GetLength(0); row++)
+            {
+                for (int col = 0; col < planet.GetLength(1); col++)
+                {
+                    if (row == 0 || col == 0 || col == 999 || row == 999)
+                    {
+                        planet[row, col] = 7; // Set to floodwater
+                    }
+                }
+            }
             return planet;
         }
 
