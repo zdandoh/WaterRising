@@ -121,7 +121,7 @@ namespace WaterRising
         {
             while (true)
             {
-                string command = UI.ReadLine();
+                string command = UI.ReadInput();
                 if (command.Length >= 1)
                 {
                     Player.HandleInput(command);

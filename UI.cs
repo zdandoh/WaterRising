@@ -10,11 +10,39 @@ namespace WaterRising
 {
     public class UI
     {
-        static char[,] map = new char[15,25];
+        static char[,] map = new char[15, 25];
         static int[] map_start = { 1, 53 };
         static int[] log_coords = { 1, 1 };
         static bool map_exists = false;
         static int last_tick = 0;
+        static Dictionary<char, int> key_list = new Dictionary<char,int>{
+        {'a', 0x41},
+        {'b', 0x42},
+        {'c', 0x43},
+        {'d', 0x44},
+        {'e', 0x45},
+        {'f', 0x46},
+        {'g', 0x47},
+        {'h', 0x48},
+        {'i', 0x49},
+        {'j', 0x4A},
+        {'k', 0x4B},
+        {'l', 0x4C},
+        {'m', 0x4D},
+        {'n', 0x4E},
+        {'o', 0x4F},
+        {'p', 0x50},
+        {'q', 0x51},
+        {'r', 0x52},
+        {'s', 0x53},
+        {'t', 0x54},
+        {'u', 0x55},
+        {'v', 0x56},
+        {'w', 0x57},
+        {'x', 0x58},
+        {'y', 0x59},
+        {'z', 0x5A},
+        };
         static StringBuilder frame = new StringBuilder(@"|---------------------------------------------------|-------------------------|
 |                                                   |
 |                                                   |
@@ -37,7 +65,7 @@ namespace WaterRising
 |                                                   |                         |
 |                                                   | Hunger:
 |---------------------------------------------------|                         |
-|                                                   |                         |
+|»                                                  |                         |
 |---------------------------------------------------|-------------------------|
 ");
         static List<string> log_data = new List<string>();
@@ -98,7 +126,7 @@ namespace WaterRising
         public static void UpdateMap(byte[,] planet, int[] player)
         {
             map_exists = true;
-            int[] top_left = { player[0] - 7, player[1] - 12};
+            int[] top_left = { player[0] - 7, player[1] - 12 };
             for (int row = 0; row < 15; row++)
             {
                 for (int col = 0; col < 25; col++)
@@ -114,10 +142,9 @@ namespace WaterRising
 
         public static void DrawMap()
         {
-            Console.CursorVisible = false;
             Console.CursorLeft = 53;
             Console.CursorTop = 1;
-            for (int row = 0; row < 15; row++ )
+            for (int row = 0; row < 15; row++)
             {
                 for (int col = 0; col < 25; col++)
                 {
@@ -160,7 +187,6 @@ namespace WaterRising
                 Console.CursorLeft = 53;
             }
             Console.ResetColor();
-            Console.CursorVisible = true;
         }
 
         public static void Log(string text)
@@ -194,31 +220,63 @@ namespace WaterRising
             Update();
         }
 
-        public static string ReadLine()
+        public enum KeyCode : int
         {
-            // Setup input visuals
-            Console.CursorVisible = true;
-            Console.Write("» ");
+            Left = 0x25,
+            Up,
+            Right,
+            Down
+        }
+
+        public static class NativeKeyboard
+        {
+            private const int KeyPressed = 0x8000;
+
+            public static bool IsKeyDown(KeyCode key)
+            {
+                return (GetKeyState((int)key) & KeyPressed) != 0;
+            }
+
+            [System.Runtime.InteropServices.DllImport("user32.dll")]
+            public static extern short GetKeyState(int key);
+        }
+
+        public static string ReadLine(char first_key)
+        {
+            Console.SetCursorPosition(3, 22);
+            while (Console.KeyAvailable)
+            {
+                Console.ReadKey(false);
+            }
+            Console.Write(first_key);
+            string readline_output = first_key + Console.ReadLine();
+            Update();
+            Program.Log(readline_output);
+            return readline_output;
+        }
+
+        public static string ReadInput()
+        {
+            Console.SetCursorPosition(2, 22);
             // Check if the first keypress is an arrow key
             string readline_output = "";
-            ConsoleKeyInfo first_keypress = Console.ReadKey();
-            if (first_keypress.Key == ConsoleKey.UpArrow)
+            if (NativeKeyboard.GetKeyState(0x26) < 0)
             {
                 Player.Move(1);
             }
-            else if (first_keypress.Key == ConsoleKey.RightArrow)
+            else if (NativeKeyboard.GetKeyState(0x27) < 0)
             {
                 Player.Move(2);
             }
-            else if (first_keypress.Key == ConsoleKey.DownArrow)
+            else if (NativeKeyboard.GetKeyState(0x28) < 0)
             {
                 Player.Move(3);
             }
-            else if (first_keypress.Key == ConsoleKey.LeftArrow)
+            else if (NativeKeyboard.GetKeyState(0x25) < 0)
             {
                 Player.Move(4);
             }
-            else if (first_keypress.Key == ConsoleKey.D1)
+            else if (NativeKeyboard.GetKeyState(0x31) < 0)
             {
                 // Show inventory
                 UI.Log("Inventory Contents:");
@@ -227,13 +285,13 @@ namespace WaterRising
                     UI.Log(String.Format("{0}, qty {1}", item.name, item.qty));
                 }
             }
-            else
+            // The following line is too damn long
+            foreach (KeyValuePair<char, int> pair in key_list)
             {
-                // Read whole line if not arrow key
-                readline_output = Console.ReadLine();
-                readline_output = first_keypress.Key + readline_output;
-                Console.CursorVisible = false;
-                Update();
+                if (NativeKeyboard.GetKeyState(pair.Value) < 0)
+                {
+                    ReadLine(pair.Key);
+                }
             }
             return readline_output.ToLower();
         }

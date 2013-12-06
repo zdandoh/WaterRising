@@ -11,6 +11,7 @@ namespace WaterRising
         public static int[] pos = { 500, 500 };
         public static int health = 1000;
         public static int hunger = 1000;
+        public static bool block_key = false;
         public static List<Item> inventory = new List<Item>();
         public static string last_command = "";
         public static List<string[]> verbs = LoadWords("verbs");
@@ -20,6 +21,7 @@ namespace WaterRising
 
         public static void Move(int dir)
         {
+            block_key = true;
             int[] old_pos = (int[])pos.Clone();
             if (dir == 1)
             {
@@ -57,6 +59,7 @@ namespace WaterRising
             }
             hunger -= 2;
             UI.UpdateMap(Program.world, pos);
+            block_key = false;
         }
 
         public static void AddItem(string name, int amount = 1)
