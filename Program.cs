@@ -25,6 +25,7 @@ namespace WaterRising
             Console.BufferHeight = 25;
             Console.CursorVisible = false;
             TickTimer.Start();
+            Player.MoveTimer.Start();
             Console.Title = String.Format("Water Rising v{0}", VERSION);
             if (DEV == false)
             {

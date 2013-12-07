@@ -246,7 +246,7 @@ namespace WaterRising
             Console.SetCursorPosition(3, 22);
             while (Console.KeyAvailable)
             {
-                Console.ReadKey(false);
+                Console.ReadKey(true);
             }
             Console.Write(first_key);
             string readline_output = first_key + Console.ReadLine();
@@ -290,7 +290,7 @@ namespace WaterRising
             {
                 if (NativeKeyboard.GetKeyState(pair.Value) < 0)
                 {
-                    ReadLine(pair.Key);
+                    readline_output = ReadLine(pair.Key);
                 }
             }
             return readline_output.ToLower();

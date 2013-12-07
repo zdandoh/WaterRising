@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,55 +12,56 @@ namespace WaterRising
         public static int[] pos = { 500, 500 };
         public static int health = 1000;
         public static int hunger = 1000;
-        public static bool block_key = false;
         public static List<Item> inventory = new List<Item>();
+        public static Stopwatch MoveTimer = new Stopwatch();
         public static string last_command = "";
         public static List<string[]> verbs = LoadWords("verbs");
         public static List<string[]> blocks = LoadWords("blocks");
         public static List<string[]> items = LoadWords("items");
-        static int last_move = 1000;
 
         public static void Move(int dir)
         {
-            block_key = true;
-            int[] old_pos = (int[])pos.Clone();
-            if (dir == 1)
+            if (MoveTimer.ElapsedMilliseconds > 300)
             {
-                pos[0]--;
-            }
-            else if (dir == 2)
-            {
-                pos[1]++;
-            }
-            else if (dir == 3)
-            {
-                pos[0]++;
-            }
-            else if (dir == 4)
-            {
-                pos[1]--;
-            }
-            else
-            {
-                // The lazy man's exception
-                Console.WriteLine("Invalid move dir of {0}", dir);
-                Console.ReadLine();
-            }
-            // Check if we're trying to move into a solid block
-            byte new_player_blockid = Program.world[pos[0], pos[1]];
-            foreach(Block block in World.blocks)
-            {
-                if (new_player_blockid == block.id)
+                MoveTimer.Restart();
+                int[] old_pos = (int[])pos.Clone();
+                if (dir == 1)
                 {
-                    if (block.is_solid == true)
+                    pos[0]--;
+                }
+                else if (dir == 2)
+                {
+                    pos[1]++;
+                }
+                else if (dir == 3)
+                {
+                    pos[0]++;
+                }
+                else if (dir == 4)
+                {
+                    pos[1]--;
+                }
+                else
+                {
+                    // The lazy man's exception
+                    Console.WriteLine("Invalid move dir of {0}", dir);
+                    Console.ReadLine();
+                }
+                // Check if we're trying to move into a solid block
+                byte new_player_blockid = Program.world[pos[0], pos[1]];
+                foreach (Block block in World.blocks)
+                {
+                    if (new_player_blockid == block.id)
                     {
-                        pos = old_pos;
+                        if (block.is_solid == true)
+                        {
+                            pos = old_pos;
+                        }
                     }
                 }
+                hunger -= 2;
+                UI.UpdateMap(Program.world, pos);
             }
-            hunger -= 2;
-            UI.UpdateMap(Program.world, pos);
-            block_key = false;
         }
 
         public static void AddItem(string name, int amount = 1)
