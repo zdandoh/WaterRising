@@ -47,7 +47,7 @@ namespace WaterRising
             RegisterBlock(4, "tree", false, '↑', ConsoleColor.DarkGreen, ConsoleColor.Green, "A tall evergreen towers before you");
             RegisterBlock(5, "farm", false, '░', ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A small patch of farmland, created with love and malnutrition");
             RegisterBlock(6, "stone", true, '▲', ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A large outcropping of stone");
-            RegisterBlock(7, "floodwater", true, '~', ConsoleColor.Blue, ConsoleColor.DarkCyan, "Floodwaters, cold as ice");
+            RegisterBlock(7, "floodwater", true, '~', ConsoleColor.DarkBlue, ConsoleColor.Blue, "Floodwaters, cold as ice");
         }
 
         static void RegisterRecipes()
