@@ -79,6 +79,7 @@ namespace WaterRising
             {
                 World.Update();
                 Program.TickTimer.Restart();
+                UI.UpdateMap(Program.world, Player.pos);
             }
             Console.CursorLeft = 0;
             Console.CursorTop = 0;
@@ -251,7 +252,6 @@ namespace WaterRising
             Console.Write(first_key);
             string readline_output = first_key + Console.ReadLine();
             Update();
-            Program.Log(readline_output);
             return readline_output;
         }
 

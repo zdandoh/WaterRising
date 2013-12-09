@@ -9,7 +9,7 @@ namespace WaterRising
 {
     class Player
     {
-        public static int[] pos = { 500, 500 };
+        public static int[] pos = { 25, 25 };
         public static int health = 1000;
         public static int hunger = 1000;
         public static List<Item> inventory = new List<Item>();
@@ -21,7 +21,7 @@ namespace WaterRising
 
         public static void Move(int dir)
         {
-            if (MoveTimer.ElapsedMilliseconds > 300)
+            if (MoveTimer.ElapsedMilliseconds > 225)
             {
                 MoveTimer.Restart();
                 int[] old_pos = (int[])pos.Clone();

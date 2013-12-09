@@ -179,6 +179,30 @@ namespace WaterRising
                     farms.RemoveAt(farm_count);
                 }
             }
+            // Progress flood
+            for (int row = 0; row < 999; row++)
+            {
+                for (int col = 0; col < 999; col++)
+                {
+                    if (Program.world[row, col] == 7)
+                    {
+                        if (Rand.Next(2) == 1)
+                        {
+                            if (col == 999 || col == 0 || row == 999 || row == 0)
+                            {
+                                { };
+                            }
+                            else
+                            {
+                                Program.world[row + 1, col] = 7;
+                                Program.world[row - 1, col] = 7;
+                                Program.world[row, col + 1] = 7;
+                                Program.world[row, col - 1] = 7;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public static void RemoveAdjacent(int block)

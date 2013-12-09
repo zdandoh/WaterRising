@@ -80,7 +80,7 @@ namespace WaterRising
             {
                 for (int col = 0; col < planet.GetLength(1); col++)
                 {
-                    if (row == 0 || col == 0 || col == 999 || row == 999)
+                    if (row == 1 || col == 1 || col == 998 || row == 998)
                     {
                         planet[row, col] = 7; // Set to floodwater
                     }
@@ -89,22 +89,22 @@ namespace WaterRising
             return planet;
         }
 
-        public byte GetSides(byte[,] planet, int row, int col)
+        public byte GetSides(byte[,] planet, int row, int col, int search = 0)
         {
             byte side_count = 0;
-            if (planet[row + 1, col] > 0)
+            if (planet[row + 1, col] > search)
             {
                 side_count++;
             }
-            if (planet[row, col + 1] > 0)
+            if (planet[row, col + 1] > search)
             {
                 side_count++;
             }
-            if (planet[row - 1, col] > 0)
+            if (planet[row - 1, col] > search)
             {
                 side_count++;
             }
-            if (planet[row, col - 1] > 0)
+            if (planet[row, col - 1] > search)
             {
                 side_count++;
             }
