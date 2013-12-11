@@ -27,10 +27,11 @@ namespace WaterRising
             World.blocks.Add(new_block);
         }
 
-        static void RegisterRecipe(string product, params string[] ingredients)
+        static void RegisterRecipe(string product, byte station, params string[] ingredients)
         {
             Recipe new_recipe = new Recipe();
             new_recipe.product = product;
+            new_recipe.station = station;
             foreach (string ingredient in ingredients)
             {
                 new_recipe.ingredients.Add(ingredient);
@@ -48,12 +49,17 @@ namespace WaterRising
             RegisterBlock(5, "farm", false, '░', ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A small patch of farmland, created with love and malnutrition");
             RegisterBlock(6, "stone", true, '▲', ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A large outcropping of stone");
             RegisterBlock(7, "floodwater", true, '~', ConsoleColor.DarkBlue, ConsoleColor.Blue, "Floodwaters, cold as ice");
+            RegisterBlock(8, "table", true, 'π', ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "A roughly carved table, perfect for woodwork");
+            RegisterBlock(9, "furnace", true, '⌂', ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A small stone furnace, good for roasting food or smelting metals");
         }
 
         static void RegisterRecipes()
         {
-            RegisterRecipe("axe", "branch", "stone");
-            RegisterRecipe("pick", "branch", "stone");
+            RegisterRecipe("axe", 0, "branch", "stone");
+            RegisterRecipe("pick", 0, "branch", "stone");
+            RegisterRecipe("table", 0, "log", "log", "log", "log");
+            RegisterRecipe("furnace", 0, "stone", "stone", "stone", "stone", "stone");
+            RegisterRecipe("plank", 8, "log");
         }
 
         public byte[,] MakePlanet()
@@ -219,29 +225,47 @@ namespace WaterRising
     public class Recipe
     {
         public string product;
+        public byte station;
         public List<string> ingredients = new List<string>();
 
         public bool Craft()
         {
-            // This function breaks if multiple items are required for crafting
+            List<Item> temp_inv = new List<Item>();
+            List<string> failed_items = new List<string>();
             bool success = true;
+            // Take backup of player invent
+            foreach (Item item in Player.inventory)
+            {
+                temp_inv.Add(item);
+            }
+            if (station > 0 && World.IsPlayerAdjacent(station) == false)
+            {
+                UI.Log(String.Format("You cannot craft {0}, you are not near a {1}", product, World.GetBlock(station).name));
+                success = false;
+            }
             foreach (string ingredient in ingredients)
             {
-                if (Player.HasItem(ingredient) == -1)
+                if (Player.RemoveItem(ingredient) == false)
                 {
                     success = false;
-                    UI.Log(String.Format("You cannot craft {0}, you don't have {1}", product, ingredient));
-                    break;
+                    failed_items.Add(ingredient);
                 }
             }
             if (success)
             {
-                foreach (string ingredient in ingredients)
-                {
-                    Player.RemoveItem(ingredient);
-                }
                 UI.Log(String.Format("Crafted {0}", product));
                 Player.AddItem(product);
+            }
+            else if (success == false)
+            {
+                // Reset inventory
+                Player.inventory = temp_inv;
+                string log_string = String.Format("Cannot craft {0}, missing:", product);
+                foreach (string item in failed_items)
+                {
+                    log_string += (" " + item);
+                }
+                UI.Log(log_string);
             }
             return success;
         }

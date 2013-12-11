@@ -8,3 +8,4 @@
 {drink, gulp, chug, swallow, swig, taste}
 {build, construct, erect, fabricate, sow, plant}
 {make, craft, create, assemble, make}
+{smelt, melt, heat, cook}
