@@ -5,7 +5,8 @@
 {axe, ax}
 {pick, pickaxe}
 {fishing, pole}
-{iron}
+{ferrous, ore}
+{iron, ingot}
 {nugget, gold}
 {diamond}
 {log, wood, timber}

@@ -54,16 +54,27 @@ namespace WaterRising
                     UI.Log("It is impossible to make that");
                 }
             }
+            else if (action_group == Player.LookupWord("smelt"))
+            {
+                if (item_group == Player.LookupWord("ore", "item"))
+                {
+                    Interact(-1, Player.LookupWord("craft"), Player.LookupWord("iron", "item"));
+                }
+            }
             else if (block == 1)
             {
                 // MOUNTAIN
-                if (action_group == Player.LookupWord("climb"))
+                if (IsPlayerAdjacent(1))
                 {
-                    if (IsPlayerAdjacent(1))
+                    if (action_group == Player.LookupWord("climb"))
                     {
                         Player.pos = GetAdjacentBlock(1);
                         Player.hunger -= 10;
                         UI.Log("You climb the nearest mountain");
+                    }
+                    else if (action_group == Player.LookupWord("mine"))
+                    {
+                        UI.Log("The mountain is mostly made of dirt, mining is pointless");
                     }
                 }
             }
@@ -106,10 +117,24 @@ namespace WaterRising
                 {
                     if (action_group == Player.LookupWord("gather"))
                     {
-                        // pick up branches
+                        // pick up branches/chop tree
                         Player.AddItem("branch", 1);
                         Player.hunger -= 20;
                         UI.Log("You gather a few branches from a nearby tree");
+                    }
+                    else if (action_group == Player.LookupWord("chop"))
+                    {
+                        if (Player.HasItem("axe") >= 0)
+                        {
+                            Player.AddItem("log", 1);
+                            Player.hunger -= 20;
+                            UI.Log("You take your axe to the nearest tree");
+                            RemoveAdjacent(4);
+                        }
+                        else
+                        {
+                            UI.Log("You cannot fell the tree without an axe");
+                        }
                     }
                 }
             }
@@ -145,6 +170,48 @@ namespace WaterRising
                         Player.pos = GetAdjacentBlock(6);
                         Player.hunger -= 10;
                         UI.Log("You climb atop the large boulder");
+                    }
+                    else if (action_group == Player.LookupWord("mine"))
+                    {
+                        if (Player.HasItem("pick") > -1)
+                        {
+                            UI.Log("You take to the boulder with your pickaxe");
+                            Player.hunger -= 20;
+                            Player.AddItem("stone", Rand.Next(1, 3));
+                            if (Rand.Next(0, 4) == 2)
+                            {
+                                // Give ferrous ore
+                                Player.AddItem("ore");
+                                UI.Log("You find a ferrous ore deposit in the boulder");
+                            }
+                            RemoveAdjacent(6);
+                        }
+                        else
+                        {
+                            UI.Log("You cannot mine without a pickaxe!");
+                        }
+                    }
+                }
+            }
+            else if (block == 8)
+            {
+                if (action_group == Player.LookupWord("place"))
+                {
+                    if (Player.HasItem("table") > -1)
+                    {
+                        Program.world[Player.pos[0], Player.pos[1]] = 8;
+                        UI.Log("Table placed");
+                    }
+                }
+            }
+            else if (block == 9)
+            {
+                if (action_group == Player.LookupWord("place"))
+                {
+                    if (Player.HasItem("furnace") > -1)
+                    {
+                        Program.world[Player.pos[0], Player.pos[1]] = 9;
+                        UI.Log("Furnace placed");
                     }
                 }
             }

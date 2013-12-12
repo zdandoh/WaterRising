@@ -60,6 +60,7 @@ namespace WaterRising
             RegisterRecipe("table", 0, "log", "log", "log", "log");
             RegisterRecipe("furnace", 0, "stone", "stone", "stone", "stone", "stone");
             RegisterRecipe("plank", 8, "log");
+            RegisterRecipe("iron", 9, "ore");
         }
 
         public byte[,] MakePlanet()
