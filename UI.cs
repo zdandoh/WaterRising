@@ -10,7 +10,7 @@ namespace WaterRising
 {
     public class UI
     {
-        static char[,] map = new char[15, 25];
+        static string[,] map = new string[15, 25];
         static int[] map_start = { 1, 53 };
         static int[] log_coords = { 1, 1 };
         static bool map_exists = false;
@@ -133,7 +133,7 @@ namespace WaterRising
                 for (int col = 0; col < 25; col++)
                 {
                     // iterate through every map byte
-                    char map_raw = planet[top_left[0] + row, top_left[1] + col].ToString().Single();
+                    string map_raw = planet[top_left[0] + row, top_left[1] + col].ToString();
                     map[row, col] = map_raw;
                     // frame[(map_start[0] + row) * 81 + (map_start[1] + col) + 2] = map_raw;
                 }
@@ -149,15 +149,15 @@ namespace WaterRising
             {
                 for (int col = 0; col < 25; col++)
                 {
-                    char map_raw = map[row, col];
+                    string map_raw = map[row, col];
                     Console.ResetColor();
-                    if (map_raw == '0')
+                    if (map_raw == "0")
                     {
                         // GROUND
                         Console.BackgroundColor = ConsoleColor.DarkGreen;
-                        map_raw = ' ';
+                        map_raw = " ";
                     }
-                    else if (map_raw != '0')
+                    else if (map_raw != "0")
                     {
                         Block block = World.GetBlock(Byte.Parse(map_raw.ToString()));
                         Console.BackgroundColor = block.bg_color;

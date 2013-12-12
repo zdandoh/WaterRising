@@ -14,7 +14,7 @@ namespace WaterRising
         static int size = 1000;
         public static byte[,] planet = new byte[size, size];
 
-        static void RegisterBlock(byte block_id, string name, bool is_solid, char face, ConsoleColor bg_color, ConsoleColor fg_color, string walk_message = "undefined")
+        static void RegisterBlock(byte block_id, string name, bool is_solid, string face, ConsoleColor bg_color, ConsoleColor fg_color, string walk_message = "undefined")
         {
             Block new_block = new Block();
             new_block.id = block_id;
@@ -41,16 +41,18 @@ namespace WaterRising
 
         static void RegisterBlocks()
         {
-            RegisterBlock(1, "mountain", true, '▲', ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "Atop a tall mountain");
-            RegisterBlock(2, "water", true, '~', ConsoleColor.DarkCyan, ConsoleColor.Cyan, "Freezing cold water");
-            RegisterBlock(3, "berry", false, '♣', ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A berry bush, heavy with nature's bounty");
+            RegisterBlock(1, "mountain", true, "▲", ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "Atop a tall mountain");
+            RegisterBlock(2, "water", true, "~", ConsoleColor.DarkCyan, ConsoleColor.Cyan, "Freezing cold water");
+            RegisterBlock(3, "berry", false, "♣", ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A berry bush, heavy with nature's bounty");
             World.GetBlock(3).feed = 100;
-            RegisterBlock(4, "tree", false, '↑', ConsoleColor.DarkGreen, ConsoleColor.Green, "A tall evergreen towers before you");
-            RegisterBlock(5, "farm", false, '░', ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A small patch of farmland, created with love and malnutrition");
-            RegisterBlock(6, "stone", true, '▲', ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A large outcropping of stone");
-            RegisterBlock(7, "floodwater", true, '~', ConsoleColor.DarkBlue, ConsoleColor.Blue, "Floodwaters, cold as ice");
-            RegisterBlock(8, "table", true, 'π', ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "A roughly carved table, perfect for woodwork");
-            RegisterBlock(9, "furnace", true, '⌂', ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A small stone furnace, good for roasting food or smelting metals");
+            RegisterBlock(4, "tree", false, "↑", ConsoleColor.DarkGreen, ConsoleColor.Green, "A tall evergreen towers before you");
+            RegisterBlock(5, "farm", false, "░", ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A small patch of farmland, created with love and malnutrition");
+            RegisterBlock(6, "stone", true, "▲", ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A large outcropping of stone");
+            RegisterBlock(7, "floodwater", true, "~", ConsoleColor.DarkBlue, ConsoleColor.Blue, "Floodwaters, cold as ice");
+            RegisterBlock(8, "table", true, "π", ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "A roughly carved table, perfect for woodwork");
+            RegisterBlock(9, "furnace", true, "⌂", ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A small stone furnace, good for roasting food or smelting metals");
+            
+            RegisterBlock(10, "reed", false, "║", ConsoleColor.DarkGreen, ConsoleColor.Green, "A sparse cluster of tall reeds");
         }
 
         static void RegisterRecipes()
@@ -61,6 +63,7 @@ namespace WaterRising
             RegisterRecipe("furnace", 0, "stone", "stone", "stone", "stone", "stone");
             RegisterRecipe("plank", 8, "log");
             RegisterRecipe("iron", 9, "ore");
+            RegisterRecipe("rod", 8, "branch", "iron");
         }
 
         public byte[,] MakePlanet()
@@ -72,6 +75,7 @@ namespace WaterRising
             planet = RandScatter(planet, 1, 10);
             planet = RandScatter(planet, 4, 7);
             planet = RandScatter(planet, 6, 50);
+            planet = RandScatter(planet, 10, 100);
             UI.Log("Adding shrubbery...");
             planet = RandScatter(planet, 3, 1000);
             UI.Log("Growing forest...");
@@ -211,7 +215,7 @@ namespace WaterRising
         public bool is_solid;
         public ConsoleColor bg_color;
         public ConsoleColor fg_color;
-        public char face;
+        public string face;
         public int feed = 0;
         public string walk_message = "undefined";
     }

@@ -13,3 +13,5 @@
 {plank, planks}
 {workbench, table, crafting}
 {furnace, kiln, stove, forge, smithy}
+{fish, trout, salmon, bass}
+{reed, reeds, papyrus, bamboo, cane}

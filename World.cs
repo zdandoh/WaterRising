@@ -215,6 +215,16 @@ namespace WaterRising
                     }
                 }
             }
+            else if (block == 10)
+            {
+                if (action_group == Player.LookupWord("gather"))
+                {
+                    UI.Log("You gather a small bundle of reeds");
+                    Player.hunger -= 10;
+                    RemoveAdjacent(10);
+                    Player.AddItem("reed");
+                }
+            }
             UI.UpdateMap(Program.world, Player.pos);
             return "";
         }
