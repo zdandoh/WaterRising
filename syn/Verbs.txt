@@ -5,7 +5,7 @@
 {eat, bite, masticate, chew, devour, dine, feed, ingest, inhale, nibble, swallow, digest, gorge, graze, lunch, munch, snack, sup, wolf down, wolf, chow down, feast, feast upon, gobble up, partake in}
 {attack, damage, charge, invade, slay, rape, strike, violate, raid, blitzkrieg, defile, mugg, offend, rush, storm, blow, bruise, harm, wound, ravage, outrage, anger, hurt, knockout, mutilate, ravage, ruin, wreck, slash, spear, molest, kill}
 {swim, bathe, dive, float, glide, paddle, submerge, wade, freestyle, backstroke, breaststroke,  butterfly, skinny-dip, skinnydip, go for a swim, go swimming, do wading}
-{fish, hunt, angle, bait, cast, chum, net, trawl, hook}
+{fish, hunt, angle, bait, cast, chum, net, trawl, hook, fishing}
 {drink, gulp, chug, swallow, swig, taste}
 {build, construct, erect, fabricate, sow, plant, place, deposit, establish, install, put, set}
 {make, craft, create, assemble}

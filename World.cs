@@ -60,6 +60,44 @@ namespace WaterRising
                 {
                     Interact(-1, Player.LookupWord("craft"), Player.LookupWord("iron", "item"));
                 }
+                else if (item_group == Player.LookupWord("fish", "item"))
+                {
+                    Interact(-1, Player.LookupWord("craft"), Player.LookupWord("fillet", "item"));
+                }
+            }
+            else if (action_group == Player.LookupWord("fish"))
+            {
+                if (IsPlayerAdjacent(2))
+                {
+                    if (Player.HasItem("rod") > -1)
+                    {
+                        UI.Log("You cast your rod and wait for a bite");
+                        Player.hunger -= 10;
+                        int path = Rand.Next(0, 11);
+                        if (path <= 4)
+                        {
+                            UI.Log("You pull out a large fish!");
+                            Player.AddItem("fish");
+                        }
+                        else if (path == 10)
+                        {
+                            UI.Log("You haul up a gigantic squid!");
+                            Player.AddItem("squid");
+                        }
+                        else
+                        {
+                            UI.Log("The fish don't seem to be biting...");
+                        }
+                    }
+                    else
+                    {
+                        UI.Log("You need a fishing rod to go fishing!");
+                    }
+                }
+                else
+                {
+                    UI.Log("There is no water to fish in!");
+                }
             }
             else if (block == 1)
             {
@@ -76,6 +114,10 @@ namespace WaterRising
                     {
                         UI.Log("The mountain is mostly made of dirt, mining is pointless");
                     }
+                    else if (action_group == Player.LookupWord("gather"))
+                    {
+                        UI.Log("There appear to be no useful resources on this mountain");
+                    }
                 }
             }
             else if (block == 2)
@@ -89,15 +131,31 @@ namespace WaterRising
             else if (block == 3)
             {
                 // BERRY BUSH
-                if (IsPlayerAdjacent(3))
+                if (action_group == Player.LookupWord("eat"))
                 {
-                    if (action_group == Player.LookupWord("eat"))
+                    if (IsPlayerAdjacent(3))
                     {
                         Player.hunger += GetBlock(3).feed;
                         RemoveAdjacent(3);
                         UI.Log("You pick the bush clean");
                     }
-                    else if (action_group == Player.LookupWord("pick"))
+                    else
+                    {
+                        if (Player.HasItem("berry", 3) > -1)
+                        {
+                            UI.Log("You scarf down a few berries from your bag");
+                            Player.hunger += 100;
+                            Player.RemoveItem("berry", 3);
+                        }
+                        else
+                        {
+                            UI.Log("You see no berries nearby");
+                        }
+                    }
+                }
+                else if (IsPlayerAdjacent(3))
+                {
+                    if (action_group == Player.LookupWord("pick"))
                     {
                         // Add berries to player inventory
                         Player.AddItem("berry", Rand.Next(3, 5));

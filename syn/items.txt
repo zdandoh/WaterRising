@@ -15,3 +15,6 @@
 {furnace, kiln, stove, forge, smithy}
 {fish, trout, salmon, bass}
 {reed, reeds, papyrus, bamboo, cane}
+{rope, string, cable, strand, thread, twine}
+{rod, fishing, pole}
+{filet, fillet, cutlet}

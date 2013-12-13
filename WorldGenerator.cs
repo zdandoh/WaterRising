@@ -63,7 +63,9 @@ namespace WaterRising
             RegisterRecipe("furnace", 0, "stone", "stone", "stone", "stone", "stone");
             RegisterRecipe("plank", 8, "log");
             RegisterRecipe("iron", 9, "ore");
-            RegisterRecipe("rod", 8, "branch", "iron");
+            RegisterRecipe("rope", 8, "reed", "reed", "reed");
+            RegisterRecipe("rod", 8, "branch", "iron", "rope");
+            RegisterRecipe("fillet", 9, "fish");
         }
 
         public byte[,] MakePlanet()
@@ -238,6 +240,7 @@ namespace WaterRising
             List<Item> temp_inv = new List<Item>();
             List<string> failed_items = new List<string>();
             bool success = true;
+            int item_count = Player.inventory.Count();
             // Take backup of player invent
             foreach (Item item in Player.inventory)
             {
@@ -271,6 +274,11 @@ namespace WaterRising
                     log_string += (" " + item);
                 }
                 UI.Log(log_string);
+            }
+            if (success == false && Player.inventory.Count() != item_count)
+            {
+                UI.Log("CRAFTING ERROR");
+                Console.ReadLine();
             }
             return success;
         }
