@@ -51,8 +51,7 @@ namespace WaterRising
             RegisterBlock(7, "floodwater", true, "~", ConsoleColor.DarkBlue, ConsoleColor.Blue, "Floodwaters, cold as ice");
             RegisterBlock(8, "table", true, "π", ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "A roughly carved table, perfect for woodwork");
             RegisterBlock(9, "furnace", true, "⌂", ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A small stone furnace, good for roasting food or smelting metals");
-            
-            RegisterBlock(10, "reed", false, "║", ConsoleColor.DarkGreen, ConsoleColor.Green, "A sparse cluster of tall reeds");
+            RegisterBlock(10, "reed", true, "║", ConsoleColor.DarkCyan, ConsoleColor.Yellow, "A sparse cluster of tall reeds");
         }
 
         static void RegisterRecipes()
@@ -77,18 +76,37 @@ namespace WaterRising
             planet = RandScatter(planet, 1, 10);
             planet = RandScatter(planet, 4, 7);
             planet = RandScatter(planet, 6, 50);
-            planet = RandScatter(planet, 10, 100);
             UI.Log("Adding shrubbery...");
             planet = RandScatter(planet, 3, 1000);
             UI.Log("Growing forest...");
             planet = AddBlob(planet, 4, 2000, 10);
             UI.Log("Making Ponds...");
             planet = AddBlob(planet, 2, 100, 1000);
+            planet = RandScatter(planet, 10, 20);
             UI.Log("Raising mountains...");
             planet = AddBlob(planet, 1, 100, 1000);
             UI.Log("Smoothening...");
             // Change all with 4 around to those who surround it
-            UI.Log("Starting flood...");
+            for (int row = 1; row < 999; row++)
+            {
+                for (int col = 1; col < 999; col++)
+                {
+                    byte[] sides = GetSideIDs(planet, row, col);
+                    bool all_same = true;
+                    foreach (byte side in sides)
+                    {
+                        if (side != 2)
+                        {
+                            all_same = false;
+                        }
+                    }
+                    if (all_same)
+                    {
+                        planet[row, col] = 2;
+                    }
+                }
+            }
+                UI.Log("Starting flood...");
             for (int row = 0; row < planet.GetLength(0); row++)
             {
                 for (int col = 0; col < planet.GetLength(1); col++)
@@ -122,6 +140,16 @@ namespace WaterRising
                 side_count++;
             }
             return side_count;
+        }
+
+        public byte[] GetSideIDs(byte[,] planet, int row, int col)
+        {
+            byte[] sides = new byte[4];
+            sides[0] = planet[row + 1, col];
+            sides[1] = planet[row, col + 1];
+            sides[2] = planet[row - 1, col];
+            sides[3] = planet[row, col - 1];
+            return sides;
         }
 
         public void ShowPlanet(byte[,] array)
@@ -161,9 +189,42 @@ namespace WaterRising
                 for (int col = 0; col < mask.GetLength(1); col++)
                 {
                     int will_replace = RandGen.Next(0, chance);
-                    if (will_replace == 1)
+                    if (will_replace == 0)
                     {
-                        planet[row, col] = tile;
+                        if (tile == 10)
+                        {
+                            if (row != 0 && col != 0 && row != 999 && col != 999)
+                            {
+                                byte[] tile_sides = GetSideIDs(planet, row, col);
+                                bool water_found = false;
+                                bool dirt_found = false;
+                                bool reed_found = false;
+                                foreach (byte side in tile_sides)
+                                {
+                                    if (side == 0)
+                                    {
+                                        dirt_found = true;
+                                    }
+                                    else if (side == 2)
+                                    {
+                                        water_found = true;
+                                    }
+                                    else if (side == tile)
+                                    {
+                                        reed_found = true;
+                                    }
+                                }
+                                if (water_found && dirt_found && reed_found == false)
+                                {
+                                    //Generate a reed
+                                    planet[row, col] = tile;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            planet[row, col] = tile;
+                        }
                     }
                 }
             }

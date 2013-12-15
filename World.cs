@@ -73,13 +73,13 @@ namespace WaterRising
                     {
                         UI.Log("You cast your rod and wait for a bite");
                         Player.hunger -= 10;
-                        int path = Rand.Next(0, 11);
-                        if (path <= 4)
+                        int path = Rand.Next(0, 101);
+                        if (path <= 40)
                         {
                             UI.Log("You pull out a large fish!");
                             Player.AddItem("fish");
                         }
-                        else if (path == 10)
+                        else if (path == 100)
                         {
                             UI.Log("You haul up a gigantic squid!");
                             Player.AddItem("squid");
