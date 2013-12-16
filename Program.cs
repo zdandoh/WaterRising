@@ -16,6 +16,7 @@ namespace WaterRising
         public static WorldGenerator PlanetGen = new WorldGenerator();
         static UI ui = new UI();
         public static byte player_tile = 0;
+        public static bool world_done = false;
         public static byte[,] world = new byte[1000, 1000];
         static void Main(string[] args)
         {

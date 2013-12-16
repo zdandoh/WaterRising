@@ -279,7 +279,7 @@ namespace WaterRising
                 {
                     UI.Log("You gather a small bundle of reeds");
                     Player.hunger -= 10;
-                    RemoveAdjacent(10);
+                    RemoveAdjacent(10, 2);
                     Player.AddItem("reed");
                 }
             }
@@ -340,10 +340,10 @@ namespace WaterRising
             }
         }
 
-        public static void RemoveAdjacent(int block)
+        public static void RemoveAdjacent(int block, byte new_block = 0)
         {
             int[] block_coords = GetAdjacentBlock(block);
-            Program.world[block_coords[0], block_coords[1]] = 0;
+            Program.world[block_coords[0], block_coords[1]] = new_block;
         }
 
         public static bool Craft(string name)

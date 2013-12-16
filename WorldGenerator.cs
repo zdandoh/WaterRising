@@ -41,17 +41,17 @@ namespace WaterRising
 
         static void RegisterBlocks()
         {
-            RegisterBlock(1, "mountain", true, "▲", ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "Atop a tall mountain");
+            RegisterBlock(1, "mountain", true, "▲", ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "You stand atop a tall  mountain");
             RegisterBlock(2, "water", true, "~", ConsoleColor.DarkCyan, ConsoleColor.Cyan, "Freezing cold water");
-            RegisterBlock(3, "berry", false, "♣", ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A berry bush, heavy with nature's bounty");
+            RegisterBlock(3, "berry", false, "♣", ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A berry bush, heavy    with nature's bounty");
             World.GetBlock(3).feed = 100;
-            RegisterBlock(4, "tree", false, "↑", ConsoleColor.DarkGreen, ConsoleColor.Green, "A tall evergreen towers before you");
-            RegisterBlock(5, "farm", false, "░", ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A small patch of farmland, created with love and malnutrition");
+            RegisterBlock(4, "tree", false, "↑", ConsoleColor.DarkGreen, ConsoleColor.Green, "A tall evergreen towersbefore you");
+            RegisterBlock(5, "farm", false, "░", ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A small patch of farmland, created with love");
             RegisterBlock(6, "stone", true, "▲", ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A large outcropping of stone");
             RegisterBlock(7, "floodwater", true, "~", ConsoleColor.DarkBlue, ConsoleColor.Blue, "Floodwaters, cold as ice");
             RegisterBlock(8, "table", true, "π", ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "A roughly carved table, perfect for woodwork");
-            RegisterBlock(9, "furnace", true, "⌂", ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A small stone furnace, good for roasting food or smelting metals");
-            RegisterBlock(10, "reed", true, "║", ConsoleColor.DarkCyan, ConsoleColor.Yellow, "A sparse cluster of tall reeds");
+            RegisterBlock(9, "furnace", true, "⌂", ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A small stone forge, good for cooking food or smelting metal");
+            RegisterBlock(10, "reed", false, "║", ConsoleColor.DarkCyan, ConsoleColor.Yellow, "A cluster of reeds, steeped in shallow water");
         }
 
         static void RegisterRecipes()
@@ -117,6 +117,7 @@ namespace WaterRising
                     }
                 }
             }
+            Program.world_done = true;
             return planet;
         }
 

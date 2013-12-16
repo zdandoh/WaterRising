@@ -15,6 +15,7 @@ namespace WaterRising
         static int[] log_coords = { 1, 1 };
         static bool map_exists = false;
         static int last_tick = 0;
+        static string last_info = "itsover9000";
         static Dictionary<char, int> key_list = new Dictionary<char,int>{
         {'a', 0x41},
         {'b', 0x42},
@@ -60,12 +61,12 @@ namespace WaterRising
 |                                                   |
 |                                                   |
 |                                                   |-------------------------|
-|                                                   |                         |
 |                                                   | Health:
 |                                                   |                         |
 |                                                   | Hunger:
-|---------------------------------------------------|                         |
-|»                                                  |                         |
+|                                                   |                         |
+|---------------------------------------------------| 
+|»                                                  | 
 |---------------------------------------------------|-------------------------|
 ");
         static List<string> log_data = new List<string>();
@@ -96,6 +97,7 @@ namespace WaterRising
                 DrawMap();
             }
             UpdateStatus();
+            UpdateInfo();
             Console.CursorLeft = 1;
             Console.CursorTop = 22;
         }
@@ -103,25 +105,61 @@ namespace WaterRising
         public static void UpdateStatus()
         {
             // Update health
-            Console.SetCursorPosition(62, 18);
+            Console.SetCursorPosition(62, 17);
             Console.Write("               ");
             Console.BackgroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(62, 18);
+            Console.SetCursorPosition(62, 17);
             for (int lentils_drawn = 0; lentils_drawn < (Player.health / 65); lentils_drawn++)
                 Console.Write(" ");
             Console.ResetColor();
-            Console.SetCursorPosition(77, 18);
+            Console.SetCursorPosition(77, 17);
             Console.Write(" |");
             // Update hunger
-            Console.SetCursorPosition(62, 20);
+            Console.SetCursorPosition(62, 19);
             Console.Write("               ");
             Console.BackgroundColor = ConsoleColor.DarkCyan;
-            Console.SetCursorPosition(62, 20);
+            Console.SetCursorPosition(62, 19);
             for (int lentils_drawn = 0; lentils_drawn < (Player.hunger / 65); lentils_drawn++)
                 Console.Write(" ");
             Console.ResetColor();
-            Console.SetCursorPosition(77, 20);
+            Console.SetCursorPosition(77, 19);
             Console.Write(" |");
+        }
+
+        public static void UpdateInfo()
+        {
+            if (Program.world_done)
+            {
+                byte player_block = Program.world[Player.pos[0], Player.pos[1]];
+                string info_string = "";
+                if (player_block > 0)
+                {
+                    info_string = World.GetBlock(player_block).walk_message;
+                }
+                else
+                {
+                    info_string = "A plain of lush grass";
+                }
+                if (info_string != last_info)
+                {
+                    //Update info
+                    List<string> split_string = new List<string>(Regex.Split(info_string, @"(?<=\G.{23})", RegexOptions.Singleline));
+                    Console.SetCursorPosition(54, 21);
+                    Console.Write("                        ");
+                    Console.SetCursorPosition(54, 22);
+                    Console.Write("                        ");
+                    for (int split_index = 0; split_index < split_string.Count(); split_index++ )
+                    {
+                        Console.SetCursorPosition(54, 21 + split_index);
+                        Console.Write(split_string[split_index]);
+                    }
+                    Console.SetCursorPosition(78, 21);
+                    Console.Write("|");
+                    Console.SetCursorPosition(78, 22);
+                    Console.Write("|");
+                    last_info = info_string;
+                }
+            }
         }
 
         public static void UpdateMap(byte[,] planet, int[] player)
