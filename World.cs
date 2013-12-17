@@ -24,7 +24,7 @@ namespace WaterRising
             return surroundings;
         }
 
-        public static string Interact(int block, int action_group, int item_group)
+        public static string Interact(int block, int action_group, int item_group, bool followup = false)
         {
             if (action_group == Player.LookupWord("swim"))
             {
@@ -51,6 +51,22 @@ namespace WaterRising
                     else
                     {
                         UI.Log("Not enough berries to create a farm!");
+                    }
+                }
+                else if (block == Player.LookupWord("table", "block") && followup == false)
+                {
+                    Interact(-1, Player.LookupWord("craft"), Player.LookupWord("table", "item"), true);
+                    if (Player.HasItem("table") > -1)
+                    {
+                        Program.world[Player.pos[0], Player.pos[1]] = 8;
+                    }
+                }
+                else if (block == Player.LookupWord("furnace", "block") && followup == false)
+                {
+                    Interact(-1, Player.LookupWord("craft"), Player.LookupWord("furnace", "item"), true);
+                    if (Player.HasItem("furnace") > -1)
+                    {
+                        Program.world[Player.pos[0], Player.pos[1]] = 9;
                     }
                 }
                 else
@@ -301,28 +317,6 @@ namespace WaterRising
                     }
                 }
             }
-            else if (block == 8)
-            {
-                if (action_group == Player.LookupWord("place"))
-                {
-                    if (Player.HasItem("table") > -1)
-                    {
-                        Program.world[Player.pos[0], Player.pos[1]] = 8;
-                        UI.Log("Table placed");
-                    }
-                }
-            }
-            else if (block == 9)
-            {
-                if (action_group == Player.LookupWord("place"))
-                {
-                    if (Player.HasItem("furnace") > -1)
-                    {
-                        Program.world[Player.pos[0], Player.pos[1]] = 9;
-                        UI.Log("Furnace placed");
-                    }
-                }
-            }
             else if (block == 10)
             {
                 if (action_group == Player.LookupWord("gather"))
@@ -394,16 +388,6 @@ namespace WaterRising
         {
             int[] block_coords = GetAdjacentBlock(block);
             Program.world[block_coords[0], block_coords[1]] = new_block;
-        }
-
-        public static bool Craft(string name)
-        {
-            bool success = false;
-            if (Player.LookupWord(name) == Player.LookupWord("axe"))
-            {
-                
-            }
-            return success;
         }
 
         public static int[] GetAdjacentBlock(int block)

@@ -288,7 +288,17 @@ namespace WaterRising
                 Console.ReadKey(true);
             }
             Console.Write(first_key);
+            Program.TickTimer.Stop();
+            // Block the process until they backspace out or hit enter
+            /*int key_buffer = 1;
+            ConsoleKeyInfo last_key = (ConsoleKeyInfo)first_key;
+            while (key_buffer > 0 && last_key != ConsoleKey.Enter)
+            {
+                last_key = Console.ReadKey();
+            }
+             */
             string readline_output = first_key + Console.ReadLine();
+            Program.TickTimer.Start();
             Update();
             return readline_output;
         }
