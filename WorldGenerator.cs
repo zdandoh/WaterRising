@@ -65,6 +65,11 @@ namespace WaterRising
             RegisterRecipe("rope", 8, "reed", "reed", "reed");
             RegisterRecipe("rod", 8, "branch", "iron", "rope");
             RegisterRecipe("fillet", 9, "fish");
+            RegisterRecipe("barrel", 8, "log", "log", "iron");
+            RegisterRecipe("crate", 8, "log", "log");
+            RegisterRecipe("nails", 9, "iron");
+            RegisterRecipe("pan", 9, "iron");
+            RegisterRecipe("boat", 0, "plank", "plank", "plank", "plank", "plank", "plank", "crate", "crate", "crate", "barrel", "barrel", "barrel", "rope", "rope", "nails", "nails", "nails");
         }
 
         public byte[,] MakePlanet()

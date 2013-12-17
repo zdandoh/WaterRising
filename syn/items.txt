@@ -11,10 +11,15 @@
 {diamond}
 {log, wood, timber}
 {plank, planks}
-{workbench, table, crafting}
+{workbench, table, crafting, bench, work}
 {furnace, kiln, stove, forge, smithy}
 {fish, trout, salmon, bass}
 {reed, reeds, papyrus, bamboo, cane}
 {rope, string, cable, strand, thread, twine}
 {rod, fishing, pole}
 {filet, fillet, cutlet}
+{barrel, cask, cylinder, drum, keg, vat, tub}
+{crate, box, chest}
+{nail, nails, screw, screws}
+{bucket, pail, pan}
+{boat, ship, barge, canoe, dinghy, raft, sailboat, schooner, yacht}

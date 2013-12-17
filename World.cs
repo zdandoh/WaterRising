@@ -39,19 +39,36 @@ namespace WaterRising
             }
             else if (action_group == Player.LookupWord("craft"))
             {
-                // CRAFTING
-                bool tried_to_craft = false;
-                foreach (Recipe recipe in World.recipes)
+                //Create a farm
+                if (block == Player.LookupWord("farm", "block"))
                 {
-                    if (item_group == Player.LookupWord(recipe.product, "item"))
+                    if (Player.RemoveItem("berry", 2))
                     {
-                        recipe.Craft();
-                        tried_to_craft = true;
+                        Program.world[Player.pos[0], Player.pos[1]] = 5;
+                        farms.Add(new int[] { Player.pos[0], Player.pos[1] });
+                        UI.Log("You plant a small berry farm");
+                    }
+                    else
+                    {
+                        UI.Log("Not enough berries to create a farm!");
                     }
                 }
-                if (tried_to_craft == false)
+                else
                 {
-                    UI.Log("It is impossible to make that");
+                    // CRAFTING
+                    bool tried_to_craft = false;
+                    foreach (Recipe recipe in World.recipes)
+                    {
+                        if (item_group == Player.LookupWord(recipe.product, "item"))
+                        {
+                            recipe.Craft();
+                            tried_to_craft = true;
+                        }
+                    }
+                    if (tried_to_craft == false)
+                    {
+                        UI.Log("It is impossible to make that");
+                    }
                 }
             }
             else if (action_group == Player.LookupWord("smelt"))
@@ -97,6 +114,56 @@ namespace WaterRising
                 else
                 {
                     UI.Log("There is no water to fish in!");
+                }
+            }
+            else if (item_group == Player.LookupWord("fillet", "item"))
+            {
+                if (action_group == Player.LookupWord("eat") && Player.RemoveItem("fillet"))
+                {
+                    UI.Log("You scarf down the scalding fillet");
+                    Player.hunger += 75;
+                }
+                else
+                {
+                    UI.Log("You don't have a fillet to speak of!");
+                }
+            }
+            else if (action_group == Player.LookupWord("pan"))
+            {
+                if (Player.HasItem("pan") > -1)
+                {
+                    if (IsPlayerAdjacent(2))
+                    {
+                        UI.Log("You begin to sift through the silt in search of treasure");
+                        int pan_change = Rand.Next(0, 100);
+                        if (pan_change == 99)
+                        {
+                            UI.Log("You find a small diamond in the rough!");
+                            Player.AddItem("diamond");
+                        }
+                        if (pan_change > 85)
+                        {
+                            UI.Log("You find a golden nugget!");
+                            Player.AddItem("nugget");
+                        }
+                        else if (pan_change < 40)
+                        {
+                            UI.Log("You find a clump of ferrous ore in your pan!");
+                            Player.AddItem("ore");
+                        }
+                        else
+                        {
+                            UI.Log("Your pan contains only dirt...");
+                        }
+                    }
+                    else
+                    {
+                        UI.Log("You can't go panning unless you are near water!");
+                    }
+                }
+                else
+                {
+                    UI.Log("You can't go panning without a pan!");
                 }
             }
             else if (block == 1)
@@ -196,23 +263,6 @@ namespace WaterRising
                     }
                 }
             }
-            else if (block == 5)
-            {
-                // Farm
-                if (action_group == Player.LookupWord("plant"))
-                {
-                    if (Player.RemoveItem("berry", 2))
-                    {
-                        Program.world[Player.pos[0], Player.pos[1]] = 5;
-                        farms.Add(new int[] {Player.pos[0], Player.pos[1]});
-                        UI.Log("You plant a small berry farm");
-                    }
-                    else
-                    {
-                        UI.Log("Not enough berries to create a farm!");
-                    }
-                }
-            }
             else if (block == 6)
             {
                 // Rock
@@ -236,7 +286,7 @@ namespace WaterRising
                             UI.Log("You take to the boulder with your pickaxe");
                             Player.hunger -= 20;
                             Player.AddItem("stone", Rand.Next(1, 3));
-                            if (Rand.Next(0, 4) == 2)
+                            if (Rand.Next(0, 3) == 0)
                             {
                                 // Give ferrous ore
                                 Player.AddItem("ore");
