@@ -282,22 +282,30 @@ namespace WaterRising
 
         public static string ReadLine(char first_key)
         {
-            Console.SetCursorPosition(3, 22);
             while (Console.KeyAvailable)
             {
                 Console.ReadKey(true);
             }
-            Console.Write(first_key);
             Program.TickTimer.Stop();
             // Block the process until they backspace out or hit enter
-            /*int key_buffer = 1;
-            ConsoleKeyInfo last_key = (ConsoleKeyInfo)first_key;
-            while (key_buffer > 0 && last_key != ConsoleKey.Enter)
+            string readline_output = first_key + "";
+            ConsoleKey last_key = (ConsoleKey)'n';
+            while (readline_output.Length > 0 && last_key != ConsoleKey.Enter)
             {
-                last_key = Console.ReadKey();
+                Console.SetCursorPosition(3, 22);
+                Console.Write("                                                 ");
+                Console.SetCursorPosition(3, 22);
+                Console.Write(readline_output);
+                last_key = Console.ReadKey(true).Key;
+                if (last_key == ConsoleKey.Backspace || last_key == ConsoleKey.Delete)
+                {
+                    readline_output = readline_output.Substring(0, readline_output.Length - 1);
+                }
+                else
+                {
+                    readline_output += char.ToLower((char)last_key);
+                }
             }
-             */
-            string readline_output = first_key + Console.ReadLine();
             Program.TickTimer.Start();
             Update();
             return readline_output;
@@ -341,7 +349,7 @@ namespace WaterRising
                     readline_output = ReadLine(pair.Key);
                 }
             }
-            return readline_output.ToLower();
+            return readline_output.ToLower().TrimEnd('\r', '\n');
         }
     }
 }
