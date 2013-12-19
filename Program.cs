@@ -128,6 +128,15 @@ namespace WaterRising
                 {
                     Player.HandleInput(command);
                 }
+                //World tick, once every 5 seconds
+                int timer_result = (int)(Program.TickTimer.ElapsedMilliseconds / 5000);
+                Program.Log(timer_result.ToString());
+                for (int tick_count = 0; tick_count < timer_result; tick_count++)
+                {
+                    World.Update();
+                    Program.TickTimer.Restart();
+                    UI.UpdateMap(Program.world, Player.pos);
+                }
             }
         }
     }

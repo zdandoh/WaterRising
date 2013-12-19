@@ -74,14 +74,6 @@ namespace WaterRising
         static StringBuilder blank_log = new StringBuilder(log_data.ToString());
         public static void Update()
         {
-            //World tick, once every 5 seconds
-            int timer_result = (int)(Program.TickTimer.ElapsedMilliseconds / 5000);
-            for (int tick_count = 0; tick_count < timer_result; tick_count++)
-            {
-                World.Update();
-                Program.TickTimer.Restart();
-                UI.UpdateMap(Program.world, Player.pos);
-            }
             Console.CursorLeft = 0;
             Console.CursorTop = 0;
             Console.Write(frame.ToString());
