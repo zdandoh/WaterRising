@@ -294,6 +294,15 @@ namespace WaterRising
         public string name;
         public int id;
         public int qty;
+
+        public Item Clone(Item old)
+        {
+            Item new_item = new Item();
+            new_item.name = old.name;
+            new_item.id = old.id;
+            new_item.qty = old.qty;
+            return new_item;
+        }
     }
 
     public class Recipe
@@ -304,29 +313,33 @@ namespace WaterRising
 
         public bool Craft()
         {
-            List<Item> temp_inv = new List<Item>();
             List<string> failed_items = new List<string>();
+            List<Item> temp_inv = new List<Item>();
             bool success = true;
+            bool have_table = true;
             int item_count = Player.inventory.Count();
             // Take backup of player invent
             foreach (Item item in Player.inventory)
             {
-                temp_inv.Add(item);
+                temp_inv.Add(item.Clone(item));
             }
             if (station > 0 && World.IsPlayerAdjacent(station) == false)
             {
                 UI.Log(String.Format("You cannot craft {0}, you are not near a {1}", product, World.GetBlock(station).name));
-                success = false;
+                have_table = false;
             }
-            foreach (string ingredient in ingredients)
+            if (have_table)
             {
-                if (Player.RemoveItem(ingredient) == false)
+                foreach (string ingredient in ingredients)
                 {
-                    success = false;
-                    failed_items.Add(ingredient);
+                    if (Player.RemoveItem(ingredient) == false)
+                    {
+                        success = false;
+                        failed_items.Add(ingredient);
+                    }
                 }
             }
-            if (success)
+            if (success && have_table)
             {
                 UI.Log(String.Format("Crafted {0}", product));
                 Player.AddItem(product);
@@ -335,12 +348,15 @@ namespace WaterRising
             {
                 // Reset inventory
                 Player.inventory = temp_inv;
-                string log_string = String.Format("Cannot craft {0}, missing:", product);
-                foreach (string item in failed_items)
+                if (have_table)
                 {
-                    log_string += (" " + item);
+                    string log_string = String.Format("Cannot craft {0}, missing:", product);
+                    foreach (string item in failed_items)
+                    {
+                        log_string += (" " + item);
+                    }
+                    UI.Log(log_string);
                 }
-                UI.Log(log_string);
             }
             if (success == false && Player.inventory.Count() != item_count)
             {
