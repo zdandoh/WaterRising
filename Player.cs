@@ -12,6 +12,7 @@ namespace WaterRising
         public static int[] pos = { 500, 500 };
         public static int health = 1000;
         public static int hunger = 1000;
+        public static bool can_move = true;
         public static List<Item> inventory = new List<Item>();
         public static Stopwatch MoveTimer = new Stopwatch();
         public static string last_command = "";
@@ -21,7 +22,7 @@ namespace WaterRising
 
         public static void Move(int dir)
         {
-            if (MoveTimer.ElapsedMilliseconds > 225)
+            if (MoveTimer.ElapsedMilliseconds > 225 && can_move)
             {
                 MoveTimer.Restart();
                 int[] old_pos = (int[])pos.Clone();
@@ -59,7 +60,7 @@ namespace WaterRising
                         }
                     }
                 }
-                hunger -= 2;
+                Player.RemoveHunger(2);
                 UI.UpdateMap(Program.world, pos);
             }
         }
@@ -122,6 +123,23 @@ namespace WaterRising
                 count = inventory[index].qty;
             }
             return count;
+        }
+
+        public static void RemoveHunger(int cost)
+        {
+            if (hunger > 0)
+            {
+                hunger -= cost;
+            }
+            else if (health > 0)
+            {
+                health -= cost;
+            }
+            else
+            {
+                can_move = false;
+                UI.Log("You died");
+            }
         }
 
         public static List<string[]> LoadWords(string file_name)
@@ -210,6 +228,9 @@ namespace WaterRising
             }
             // Extract verb and object, really frickin' breakable atm
             string[] words = command.Split(' ');
+            string verb_word = "";
+            string block_word = "";
+            string item_word = "";
             int verb_group = -1;
             int block_group = -1;
             int item_group = -1;
@@ -221,17 +242,20 @@ namespace WaterRising
                 if (verb_result > -1 & verb_group == -1)
                 {
                     verb_group = verb_result;
+                    verb_word = word;
                 }
                 if (block_result > -1)
                 {
                     block_group = block_result;
+                    block_word = word;
                 }
                 if (item_result > -1)
                 {
                     item_group = item_result;
+                    item_word = word;
                 }
             }
-            World.Interact(block_group, verb_group, item_group);
+            World.Interact(block_group, verb_group, item_group, false, verb_word, block_word, item_word);
         }
     }
 }

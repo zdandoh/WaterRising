@@ -24,7 +24,7 @@ namespace WaterRising
             return surroundings;
         }
 
-        public static string Interact(int block, int action_group, int item_group, bool followup = false)
+        public static string Interact(int block, int action_group, int item_group, bool followup = false, string verb_word = "", string block_word = "", string item_word = "")
         {
             if (action_group == Player.LookupWord("swim"))
             {
@@ -56,7 +56,7 @@ namespace WaterRising
                 else if (block == Player.LookupWord("table", "block") && followup == false)
                 {
                     Interact(-1, Player.LookupWord("craft"), Player.LookupWord("table", "item"), true);
-                    if (Player.HasItem("table") > -1)
+                    if (Player.RemoveItem("table"))
                     {
                         Program.world[Player.pos[0], Player.pos[1]] = 8;
                     }
@@ -64,7 +64,7 @@ namespace WaterRising
                 else if (block == Player.LookupWord("furnace", "block") && followup == false)
                 {
                     Interact(-1, Player.LookupWord("craft"), Player.LookupWord("furnace", "item"), true);
-                    if (Player.HasItem("furnace") > -1)
+                    if (Player.RemoveItem("furnace"))
                     {
                         Program.world[Player.pos[0], Player.pos[1]] = 9;
                     }
@@ -83,7 +83,7 @@ namespace WaterRising
                     }
                     if (tried_to_craft == false)
                     {
-                        UI.Log("It is impossible to make that");
+                        UI.Log("It is impossible to make a that");
                     }
                 }
             }
@@ -105,7 +105,7 @@ namespace WaterRising
                     if (Player.HasItem("rod") > -1)
                     {
                         UI.Log("You cast your rod and wait for a bite");
-                        Player.hunger -= 10;
+                        Player.RemoveHunger(10);
                         int path = Rand.Next(0, 101);
                         if (path <= 40)
                         {
@@ -150,6 +150,7 @@ namespace WaterRising
                 {
                     if (IsPlayerAdjacent(2))
                     {
+                        Player.RemoveHunger(15);
                         UI.Log("You begin to sift through the silt in search of treasure");
                         int pan_change = Rand.Next(0, 100);
                         if (pan_change == 99)
@@ -182,6 +183,37 @@ namespace WaterRising
                     UI.Log("You can't go panning without a pan!");
                 }
             }
+            else if (action_group == Player.LookupWord("mine"))
+            {
+                if (IsPlayerAdjacent(6))
+                {
+                    if (Player.HasItem("pick") > -1)
+                    {
+                        UI.Log("You take to the boulder with your pickaxe");
+                        Player.RemoveHunger(20);
+                        Player.AddItem("stone", Rand.Next(1, 3));
+                        if (Rand.Next(0, 3) == 0)
+                        {
+                            // Give ferrous ore
+                            Player.AddItem("ore");
+                            UI.Log("You find a ferrous ore deposit in the boulder");
+                        }
+                        RemoveAdjacent(6);
+                    }
+                    else
+                    {
+                        UI.Log("You cannot mine without a pickaxe!");
+                    }
+                }
+                else if (IsPlayerAdjacent(1))
+                {
+                    UI.Log("The mountain is mostly made of dirt, mining is pointless");
+                }
+                else
+                {
+                    UI.Log("There is no suitable place to mine nearby");
+                }
+            }
             else if (block == 1)
             {
                 // MOUNTAIN
@@ -190,12 +222,8 @@ namespace WaterRising
                     if (action_group == Player.LookupWord("climb"))
                     {
                         Player.pos = GetAdjacentBlock(1);
-                        Player.hunger -= 10;
+                        Player.RemoveHunger(5);
                         UI.Log("You climb the nearest mountain");
-                    }
-                    else if (action_group == Player.LookupWord("mine"))
-                    {
-                        UI.Log("The mountain is mostly made of dirt, mining is pointless");
                     }
                     else if (action_group == Player.LookupWord("gather"))
                     {
@@ -260,7 +288,7 @@ namespace WaterRising
                     {
                         // pick up branches/chop tree
                         Player.AddItem("branch", 1);
-                        Player.hunger -= 20;
+                        Player.RemoveHunger(10);
                         UI.Log("You gather a few branches from a nearby tree");
                     }
                     else if (action_group == Player.LookupWord("chop"))
@@ -268,7 +296,7 @@ namespace WaterRising
                         if (Player.HasItem("axe") >= 0)
                         {
                             Player.AddItem("log", 1);
-                            Player.hunger -= 20;
+                            Player.RemoveHunger(15);
                             UI.Log("You take your axe to the nearest tree");
                             RemoveAdjacent(4);
                         }
@@ -292,28 +320,8 @@ namespace WaterRising
                     else if (action_group == Player.LookupWord("climb"))
                     {
                         Player.pos = GetAdjacentBlock(6);
-                        Player.hunger -= 10;
+                        Player.RemoveHunger(5);
                         UI.Log("You climb atop the large boulder");
-                    }
-                    else if (action_group == Player.LookupWord("mine"))
-                    {
-                        if (Player.HasItem("pick") > -1)
-                        {
-                            UI.Log("You take to the boulder with your pickaxe");
-                            Player.hunger -= 20;
-                            Player.AddItem("stone", Rand.Next(1, 3));
-                            if (Rand.Next(0, 3) == 0)
-                            {
-                                // Give ferrous ore
-                                Player.AddItem("ore");
-                                UI.Log("You find a ferrous ore deposit in the boulder");
-                            }
-                            RemoveAdjacent(6);
-                        }
-                        else
-                        {
-                            UI.Log("You cannot mine without a pickaxe!");
-                        }
                     }
                 }
             }
@@ -322,9 +330,28 @@ namespace WaterRising
                 if (action_group == Player.LookupWord("gather"))
                 {
                     UI.Log("You gather a small bundle of reeds");
-                    Player.hunger -= 10;
+                    Player.RemoveHunger(5);
                     RemoveAdjacent(10, 2);
                     Player.AddItem("reed");
+                }
+            }
+            else
+            {
+                //Try to let the player know what they're doing wrong
+                if (action_group > -1 && block == -1 && item_group == -1)
+                {
+                    // Only an action
+                    UI.Log(String.Format("{0} what?", verb_word));
+                }
+                else if (action_group == -1 && block > -1 && item_group == -1)
+                {
+                    // Only a block
+                    UI.Log(String.Format("Do what to {0}?", block_word));
+                }
+                else if (action_group == -1 && block == -1 && item_group > -1)
+                {
+                    // Only an action
+                    UI.Log(String.Format("Do what with {0}?", item_word));
                 }
             }
             UI.UpdateMap(Program.world, Player.pos);
