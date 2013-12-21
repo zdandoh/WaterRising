@@ -142,6 +142,27 @@ namespace WaterRising
             }
         }
 
+        public static int GetScore()
+        {
+            int score = 0;
+            // +50 points for each item in invent
+            int total_items = 0;
+            foreach (Item item in inventory)
+            {
+                total_items += item.qty;
+            }
+            score += total_items * 25;
+            // Remaining life
+            score += health;
+            // Count up food
+            score += (Player.CountItem("berry") * 50);
+            score += (Player.CountItem("fillet") * 60);
+            // Treasures
+            score += (Player.CountItem("nugget") * 100);
+            score += (Player.CountItem("diamond") * 1000);
+            return score;
+        }
+
         public static List<string[]> LoadWords(string file_name)
         {
             //Split apart verbs & block synonyms
@@ -208,6 +229,16 @@ namespace WaterRising
             if (command == "r")
             {
                 command = last_command;
+            }
+            else if (command.Contains("fastforward"))
+            {
+                int update_count = Convert.ToInt32(command.Split(' ')[1]);
+                UI.Log("Fast forwarding world...");
+                for (int updates_done = 0; updates_done < update_count; updates_done++)
+                {
+                    World.Update();
+                }
+                UI.Log("Fast forward complete!");
             }
             else if (command == "save")
             {

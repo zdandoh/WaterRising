@@ -53,6 +53,80 @@ namespace WaterRising
                         UI.Log("Not enough berries to create a farm!");
                     }
                 }
+                else if (item_group == Player.LookupWord("boat", "item") && followup == false)
+                {
+                    Interact(-1, Player.LookupWord("craft"), Player.LookupWord("boat", "item"), true);
+                    if (Player.RemoveItem("boat"))
+                    {
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 0] = 0;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 1] = 12;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 2] = 12;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 3] = 12;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 4] = 12;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 5] = 12;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 6] = 12;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 7] = 12;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 8] = 12;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 9] = 12;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 10] = 12;
+                        Program.world[Player.pos[0] + 0, Player.pos[1] + 11] = 12;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 0] = 12;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 1] = 12;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 2] = 11;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 3] = 11;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 4] = 11;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 5] = 11;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 6] = 11;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 7] = 11;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 8] = 11;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 9] = 11;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 10] = 11;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 11] = 11;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 12] = 12;
+                        Program.world[Player.pos[0] + 1, Player.pos[1] + 13] = 12;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 0] = 12;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 1] = 12;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 2] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 3] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 4] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 5] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 6] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 7] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 8] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 9] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 10] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 11] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 12] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 13] = 11;
+                        Program.world[Player.pos[0] + 2, Player.pos[1] + 14] = 12;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 0] = 12;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 1] = 12;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 2] = 11;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 3] = 11;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 4] = 11;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 5] = 11;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 6] = 11;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 7] = 11;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 8] = 11;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 9] = 11;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 10] = 11;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 11] = 11;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 12] = 12;
+                        Program.world[Player.pos[0] + 3, Player.pos[1] + 13] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 0] = 0;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 1] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 2] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 3] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 4] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 5] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 6] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 7] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 8] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 9] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 10] = 12;
+                        Program.world[Player.pos[0] + 4, Player.pos[1] + 11] = 12;
+                    }
+                }
                 else if (block == Player.LookupWord("table", "block") && followup == false)
                 {
                     Interact(-1, Player.LookupWord("craft"), Player.LookupWord("table", "item"), true);
@@ -400,10 +474,23 @@ namespace WaterRising
                             }
                             else
                             {
-                                Program.world[row + 1, col] = 7;
-                                Program.world[row - 1, col] = 7;
-                                Program.world[row, col + 1] = 7;
-                                Program.world[row, col - 1] = 7;
+                                //hairy
+                                if (Program.world[row + 1, col] != 11 && Program.world[row + 1, col] != 12)
+                                {
+                                    Program.world[row + 1, col] = 7;
+                                }
+                                if (Program.world[row - 1, col] != 11 && Program.world[row - 1, col] != 12)
+                                {
+                                    Program.world[row - 1, col] = 7;
+                                }
+                                if (Program.world[row, col + 1] != 11 && Program.world[row, col + 1] != 12)
+                                {
+                                    Program.world[row, col + 1] = 7;
+                                }
+                                if (Program.world[row, col - 1] != 11 && Program.world[row, col - 1] != 12)
+                                {
+                                    Program.world[row, col - 1] = 7;
+                                }
                             }
                         }
                     }

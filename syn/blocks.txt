@@ -9,3 +9,5 @@
 {workbench, table, crafting}
 {furnace, kiln, stove, forge, smithy}
 {reed, reeds, papyrus, bamboo, cane}
+{shipwall}
+{shipfloor}

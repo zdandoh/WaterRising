@@ -15,6 +15,8 @@ namespace WaterRising
         static int[] log_coords = { 1, 1 };
         static bool map_exists = false;
         static int last_tick = 0;
+        static int last_health = Player.health;
+        static int last_hunger = Player.hunger;
         static string last_info = "itsover9000";
         static Dictionary<char, int> key_list = new Dictionary<char,int>{
         {'a', 0x41},
@@ -96,26 +98,28 @@ namespace WaterRising
 
         public static void UpdateStatus()
         {
-            // Update health
-            Console.SetCursorPosition(62, 17);
-            Console.Write("               ");
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(62, 17);
-            for (int lentils_drawn = 0; lentils_drawn < (Player.health / 65); lentils_drawn++)
-                Console.Write(" ");
-            Console.ResetColor();
-            Console.SetCursorPosition(77, 17);
-            Console.Write(" |");
-            // Update hunger
-            Console.SetCursorPosition(62, 19);
-            Console.Write("               ");
-            Console.BackgroundColor = ConsoleColor.DarkCyan;
-            Console.SetCursorPosition(62, 19);
-            for (int lentils_drawn = 0; lentils_drawn < (Player.hunger / 65); lentils_drawn++)
-                Console.Write(" ");
-            Console.ResetColor();
-            Console.SetCursorPosition(77, 19);
-            Console.Write(" |");
+        // Update health
+        Console.SetCursorPosition(62, 17);
+        Console.Write("               ");
+        Console.BackgroundColor = ConsoleColor.Red;
+        Console.SetCursorPosition(62, 17);
+        for (int lentils_drawn = 0; lentils_drawn < (Player.health / 65); lentils_drawn++)
+            Console.Write(" ");
+        Console.ResetColor();
+        Console.SetCursorPosition(77, 17);
+        Console.Write(" |");
+        last_health = Player.health;
+        // Update hunger
+        Console.SetCursorPosition(62, 19);
+        Console.Write("               ");
+        Console.BackgroundColor = ConsoleColor.DarkCyan;
+        Console.SetCursorPosition(62, 19);
+        for (int lentils_drawn = 0; lentils_drawn < (Player.hunger / 65); lentils_drawn++)
+            Console.Write(" ");
+        Console.ResetColor();
+        Console.SetCursorPosition(77, 19);
+        Console.Write(" |");
+        last_hunger = Player.hunger;
         }
 
         public static void UpdateInfo()
@@ -157,16 +161,26 @@ namespace WaterRising
         public static void UpdateMap(byte[,] planet, int[] player)
         {
             map_exists = true;
+            bool map_flooded = true;
             int[] top_left = { player[0] - 7, player[1] - 12 };
             for (int row = 0; row < 15; row++)
             {
                 for (int col = 0; col < 25; col++)
                 {
                     // iterate through every map byte
-                    string map_raw = planet[top_left[0] + row, top_left[1] + col].ToString();
+                    byte sliced_tile = planet[top_left[0] + row, top_left[1] + col];
+                    if (sliced_tile != 11 && sliced_tile != 12 && sliced_tile != 7)
+                    {
+                        map_flooded = false;
+                    }
+                    string map_raw = sliced_tile.ToString();
                     map[row, col] = map_raw;
                     // frame[(map_start[0] + row) * 81 + (map_start[1] + col) + 2] = map_raw;
                 }
+            }
+            if (map_flooded)
+            {
+                Program.flood_complete = true;
             }
             Update();
         }

@@ -16,6 +16,7 @@ namespace WaterRising
         public static WorldGenerator PlanetGen = new WorldGenerator();
         static UI ui = new UI();
         public static byte player_tile = 0;
+        public static bool flood_complete = false;
         public static bool world_done = false;
         public static byte[,] world = new byte[1000, 1000];
         static void Main(string[] args)
@@ -123,6 +124,21 @@ namespace WaterRising
         {
             while (true)
             {
+                if (flood_complete)
+                {
+                    if (Program.world[Player.pos[0], Player.pos[1]] == 7)
+                    {
+                        UI.Log("You drowned in the floodwaters...");
+                    }
+                    else if (Program.world[Player.pos[0], Player.pos[1]] == 11 || Program.world[Player.pos[0], Player.pos[1]] == 12)
+                    {
+                        UI.Log("You survived the flood!");
+                        UI.Log(String.Format("Score: {0}", Player.GetScore()));
+                    }
+                    UI.Log("Press enter to exit");
+                    Console.ReadLine();
+                    break;
+                }
                 string command = UI.ReadInput();
                 if (command.Length >= 1)
                 {
@@ -130,7 +146,6 @@ namespace WaterRising
                 }
                 //World tick, once every 5 seconds
                 int timer_result = (int)(Program.TickTimer.ElapsedMilliseconds / 5000);
-                Program.Log(timer_result.ToString());
                 for (int tick_count = 0; tick_count < timer_result; tick_count++)
                 {
                     World.Update();

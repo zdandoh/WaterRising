@@ -41,6 +41,7 @@ namespace WaterRising
 
         static void RegisterBlocks()
         {
+            RegisterBlock(0, "grass", false, " ", ConsoleColor.DarkGreen, ConsoleColor.DarkGreen, "A plain of lush grass");
             RegisterBlock(1, "mountain", true, "▲", ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "You stand atop a tall  mountain");
             RegisterBlock(2, "water", true, "~", ConsoleColor.DarkCyan, ConsoleColor.Cyan, "Freezing cold water");
             RegisterBlock(3, "berry", false, "♣", ConsoleColor.DarkGreen, ConsoleColor.Magenta, "A berry bush, heavy    with nature's bounty");
@@ -52,6 +53,10 @@ namespace WaterRising
             RegisterBlock(8, "table", true, "π", ConsoleColor.DarkGreen, ConsoleColor.DarkYellow, "A roughly carved table, perfect for woodwork");
             RegisterBlock(9, "furnace", true, "⌂", ConsoleColor.DarkGreen, ConsoleColor.DarkGray, "A small stone forge, good for cooking food or smelting metal");
             RegisterBlock(10, "reed", false, "║", ConsoleColor.DarkCyan, ConsoleColor.Yellow, "A cluster of reeds, steeped in shallow water");
+            RegisterBlock(11, "shipfloor", false, " ", ConsoleColor.DarkYellow, ConsoleColor.Gray, "The deck of your boat");
+            RegisterBlock(12, "shipwall", false, " ", ConsoleColor.DarkRed, ConsoleColor.DarkRed, "The deck of your boat");
+            RegisterBlock(13, "crate", true, "■", ConsoleColor.DarkYellow, ConsoleColor.Yellow, "A crate packed with food, you hope");
+            RegisterBlock(14, "barrel", true, "O", ConsoleColor.DarkYellow, ConsoleColor.DarkGray, "A sturdy barrel, filled to the brim with water");
         }
 
         static void RegisterRecipes()
