@@ -70,8 +70,8 @@ namespace WaterRising
             RegisterRecipe("rope", 8, "reed", "reed", "reed");
             RegisterRecipe("rod", 8, "branch", "iron", "rope");
             RegisterRecipe("fillet", 9, "fish");
-            RegisterRecipe("barrel", 8, "log", "log", "iron");
-            RegisterRecipe("crate", 8, "log", "log");
+            RegisterRecipe("barrel", 8, "plank", "plank", "iron");
+            RegisterRecipe("crate", 8, "plank", "plank");
             RegisterRecipe("nails", 9, "iron");
             RegisterRecipe("pan", 9, "iron");
             RegisterRecipe("boat", 0, "plank", "plank", "plank", "plank", "plank", "plank", "crate", "crate", "crate", "barrel", "barrel", "barrel", "rope", "rope", "nails", "nails", "nails");
@@ -89,7 +89,7 @@ namespace WaterRising
             UI.Log("Adding shrubbery...");
             planet = RandScatter(planet, 3, 1000);
             UI.Log("Growing forest...");
-            planet = AddBlob(planet, 4, 2000, 10);
+            planet = AddBlob(planet, 4, 100, 500);
             UI.Log("Making Ponds...");
             planet = AddBlob(planet, 2, 100, 1000);
             planet = RandScatter(planet, 10, 20);

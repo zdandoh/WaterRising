@@ -226,7 +226,7 @@ namespace WaterRising
                 {
                     if (IsPlayerAdjacent(2))
                     {
-                        Player.RemoveHunger(15);
+                        Player.RemoveHunger(30);
                         UI.Log("You begin to sift through the silt in search of treasure");
                         int pan_change = Rand.Next(0, 100);
                         if (pan_change == 99)
@@ -268,7 +268,7 @@ namespace WaterRising
                         UI.Log("You take to the boulder with your pickaxe");
                         Player.RemoveHunger(20);
                         Player.AddItem("stone", Rand.Next(1, 3));
-                        if (Rand.Next(0, 3) == 0)
+                        if (Rand.Next(0, 2) == 0)
                         {
                             // Give ferrous ore
                             Player.AddItem("ore");
@@ -345,7 +345,7 @@ namespace WaterRising
                     if (action_group == Player.LookupWord("pick"))
                     {
                         // Add berries to player inventory
-                        Player.AddItem("berry", Rand.Next(3, 5));
+                        Player.AddItem("berry", Rand.Next(4, 6));
                         RemoveAdjacent(3);
                         UI.Log("You pick the bush clean");
                     }
@@ -371,8 +371,8 @@ namespace WaterRising
                     {
                         if (Player.HasItem("axe") >= 0)
                         {
-                            Player.AddItem("log", 1);
-                            Player.RemoveHunger(15);
+                            Player.AddItem("log", Rand.Next(2, 4));
+                            Player.RemoveHunger(37);
                             UI.Log("You take your axe to the nearest tree");
                             RemoveAdjacent(4);
                         }
