@@ -58,6 +58,8 @@ namespace WaterRising
                     Interact(-1, Player.LookupWord("craft"), Player.LookupWord("boat", "item"), true);
                     if (Player.RemoveItem("boat"))
                     {
+                        //omg so ugly lol
+                        UI.Log("You manage to build a simple vessel, not pretty, but hopefully it's seaworthy");
                         Program.world[Player.pos[0] + 0, Player.pos[1] + 0] = 0;
                         Program.world[Player.pos[0] + 0, Player.pos[1] + 1] = 12;
                         Program.world[Player.pos[0] + 0, Player.pos[1] + 2] = 12;
@@ -451,7 +453,7 @@ namespace WaterRising
             for (int farm_count = 0; farm_count < farms.Count; farm_count++)
             {
                 // Iterate through every farm
-                if (Rand.Next(0, 70) == 2)
+                if (Rand.Next(0, 20) == 2)
                 {
                     // Farm grows
                     int[] farm_location = farms[farm_count];

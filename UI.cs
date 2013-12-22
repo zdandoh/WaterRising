@@ -347,6 +347,11 @@ namespace WaterRising
                     UI.Log(String.Format("{0}, qty {1}", item.name, item.qty));
                 }
             }
+            else if (NativeKeyboard.GetKeyState(0x32) < 0)
+            {
+                // Repeat action
+                Player.HandleInput(Player.last_command);
+            }
             // The following line is too damn long
             foreach (KeyValuePair<char, int> pair in key_list)
             {

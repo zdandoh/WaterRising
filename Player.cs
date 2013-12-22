@@ -152,8 +152,9 @@ namespace WaterRising
                 total_items += item.qty;
             }
             score += total_items * 25;
-            // Remaining life
+            // Remaining life and hunger
             score += health;
+            score += hunger;
             // Count up food
             score += (Player.CountItem("berry") * 50);
             score += (Player.CountItem("fillet") * 60);

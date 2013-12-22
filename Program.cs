@@ -19,7 +19,7 @@ namespace WaterRising
         public static bool flood_complete = false;
         public static bool world_done = false;
         public static byte[,] world = new byte[1000, 1000];
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             // Setup adventure, yo
             const string VERSION = "0.1a";
@@ -48,6 +48,7 @@ namespace WaterRising
 
             // Main game loop begins
             PlayGame();
+            return 1;
         }
 
         public static void SlowWrite(string str)

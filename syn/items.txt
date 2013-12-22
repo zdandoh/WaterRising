@@ -1,10 +1,10 @@
 ﻿{}
-{branch, branches, twig, twigs, kindling}
+{branch, branches, twig, twigs, kindling, stick, sticks}
 {berry, berries}
 {stone, rock, sheetrock}
 {axe, ax}
 {pick, pickaxe}
-{fishing, pole}
+{fishing, pole, rod}
 {ferrous, ore}
 {iron, ingot}
 {nugget, gold}
