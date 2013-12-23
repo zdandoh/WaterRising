@@ -402,12 +402,19 @@ namespace WaterRising
             }
             else if (block == 10)
             {
-                if (action_group == Player.LookupWord("gather"))
+                if (IsPlayerAdjacent(10))
                 {
-                    UI.Log("You gather a small bundle of reeds");
-                    Player.RemoveHunger(5);
-                    RemoveAdjacent(10, 2);
-                    Player.AddItem("reed");
+                    if (action_group == Player.LookupWord("gather"))
+                    {
+                        UI.Log("You gather a small bundle of reeds");
+                        Player.RemoveHunger(5);
+                        RemoveAdjacent(10, 2);
+                        Player.AddItem("reed");
+                    }
+                }
+                else
+                {
+                    UI.Log("There are no reeds nearby");
                 }
             }
             else
