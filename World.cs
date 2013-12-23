@@ -328,11 +328,10 @@ namespace WaterRising
                     }
                     else
                     {
-                        if (Player.HasItem("berry", 3) > -1)
+                        if (Player.RemoveItem("berry", 3))
                         {
                             UI.Log("You scarf down a few berries from your bag");
                             Player.hunger += 100;
-                            Player.RemoveItem("berry", 3);
                         }
                         else
                         {
