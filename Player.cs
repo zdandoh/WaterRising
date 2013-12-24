@@ -241,6 +241,19 @@ namespace WaterRising
                 }
                 UI.Log("Fast forward complete!");
             }
+            else if (command == "score")
+            {
+                UI.Log(String.Format("Current score: {0}", GetScore()));
+            }
+            else if (command == "scores")
+            {
+                string scores = Program.GetScores();
+                UI.Log("High Scores:");
+                foreach (string score_line in scores.Split('\n'))
+                {
+                    UI.Log(score_line);
+                }
+            }
             else if (command == "save")
             {
                 // Save the game world and state
