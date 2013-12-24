@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net;
+using System.Collections.Specialized;
 
 namespace WaterRising
 {
@@ -15,6 +17,7 @@ namespace WaterRising
         public static Stopwatch TickTimer = new Stopwatch();
         public static WorldGenerator PlanetGen = new WorldGenerator();
         static UI ui = new UI();
+        public static string name = "";
         public static byte player_tile = 0;
         public static bool flood_complete = false;
         public static bool world_done = false;
@@ -23,7 +26,7 @@ namespace WaterRising
         {
             // Setup adventure, yo
             const string VERSION = "0.1a";
-            const bool DEV = true;
+            const bool DEV = false;
             Console.BufferHeight = 25;
             Console.CursorVisible = false;
             TickTimer.Start();
@@ -31,15 +34,8 @@ namespace WaterRising
             Console.Title = String.Format("Water Rising v{0}", VERSION);
             if (DEV == false)
             {
-                Console.WriteLine("Water Rising v{0}", VERSION);
                 SlowWrite("What's your name? ");
-                string name = Console.ReadLine();
-                SlowWrite(String.Format("Okay, so your name is {0}? Great!", name));
-                SlowWrite("You're going to explore a new planet, what is this planet's name? ");
-                string planet = Console.ReadLine();
-                SlowWrite(String.Format("Wow, {0} sounds exciting!", planet));
-                SlowWrite("Looks like the ship is ready to go, press enter to embark!");
-                Console.ReadLine();
+                name = Console.ReadLine();
             }
             UI.Update();
             world = PlanetGen.MakePlanet();
@@ -98,7 +94,33 @@ namespace WaterRising
             return multi_arr;
         } 
 
+        public static string GetScores()
+        {
+            using (var wb = new WebClient())
+            {
+                var data = new NameValueCollection();
+                data["show"] = "1";
 
+                var response = wb.UploadValues("http://cactuscode.net/cgi-bin/WaterRising/score.py?show=1", "POST", data);
+                string scores = System.Text.Encoding.Default.GetString(response);
+                return scores;
+            }
+        }
+
+        public static string UpdateScores(string name, int score)
+        {
+            using (var wb = new WebClient())
+            {
+                var data = new NameValueCollection();
+                data["show"] = "0";
+                data["score"] = score.ToString();
+                data["name"] = name;
+
+                var response = wb.UploadValues("http://cactuscode.net/cgi-bin/WaterRising/score.py", "POST", data);
+                string scores = System.Text.Encoding.Default.GetString(response);
+                return scores;
+            }
+        }
         public static void Save()
         {
             // Save world by converting to byte[][]
@@ -135,6 +157,14 @@ namespace WaterRising
                     {
                         UI.Log("You survived the flood!");
                         UI.Log(String.Format("Score: {0}", Player.GetScore()));
+                        Program.UpdateScores(name, Player.GetScore());
+                    }
+                    //Display high scores
+                    string scores = GetScores();
+                    UI.Log("High Scores:");
+                    foreach (string score_line in scores.Split('\n'))
+                    {
+                        UI.Log(score_line);
                     }
                     UI.Log("Press enter to exit");
                     Console.ReadLine();
