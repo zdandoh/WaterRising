@@ -274,6 +274,10 @@ namespace WaterRising
                             Player.AddItem("ore");
                             UI.Log("You find a ferrous ore deposit in the boulder");
                         }
+                        else
+                        {
+                            UI.Log("You find only stone slag");
+                        }
                         RemoveAdjacent(6);
                     }
                     else
