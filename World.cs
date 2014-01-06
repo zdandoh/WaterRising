@@ -40,7 +40,7 @@ namespace WaterRising
             else if (action_group == Player.LookupWord("craft"))
             {
                 //Create a farm
-                if (block == Player.LookupWord("farm", "block"))
+                if (block == Player.LookupWord("farm", "block") || item_group == Player.LookupWord("berry", "item"))
                 {
                     if (Player.RemoveItem("berry", 2))
                     {

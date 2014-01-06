@@ -90,7 +90,7 @@ namespace WaterRising
             planet = RandScatter(planet, 3, 1000);
             UI.Log("Growing forest...");
             planet = AddBlob(planet, 4, 100, 500);
-            UI.Log("Making Ponds...");
+            UI.Log("Making ponds...");
             planet = AddBlob(planet, 2, 100, 1000);
             planet = RandScatter(planet, 10, 20);
             UI.Log("Raising mountains...");
