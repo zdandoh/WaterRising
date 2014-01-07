@@ -132,7 +132,7 @@ namespace WaterRising
                 else if (block == Player.LookupWord("table", "block") && followup == false)
                 {
                     Interact(-1, Player.LookupWord("craft"), Player.LookupWord("table", "item"), true);
-                    if (Player.RemoveItem("table"))
+                    if (Player.CountItem("table") > 0)
                     {
                         Program.world[Player.pos[0], Player.pos[1]] = 8;
                     }
@@ -326,7 +326,7 @@ namespace WaterRising
                 {
                     if (IsPlayerAdjacent(3))
                     {
-                        Player.hunger += GetBlock(3).feed;
+                        Player.hunger += 200;
                         RemoveAdjacent(3);
                         UI.Log("You pick the bush clean");
                     }
@@ -394,6 +394,7 @@ namespace WaterRising
                     if (action_group == Player.LookupWord("gather"))
                     {
                         UI.Log("You pry free a lose piece of rock");
+                        Player.RemoveHunger(5);
                         Player.AddItem("rock");
                     }
                     else if (action_group == Player.LookupWord("climb"))
