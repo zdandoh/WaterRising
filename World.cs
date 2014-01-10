@@ -159,7 +159,7 @@ namespace WaterRising
                     }
                     if (tried_to_craft == false)
                     {
-                        UI.Log("It is impossible to make that");
+                        UI.Log("It is impossible to make a that");
                     }
                 }
             }
@@ -181,7 +181,6 @@ namespace WaterRising
                     if (Player.HasItem("rod") > -1)
                     {
                         UI.Log("You cast your rod and wait for a bite");
-                        System.Threading.Thread.Sleep(2000);
                         Player.RemoveHunger(10);
                         int path = Rand.Next(0, 101);
                         if (path <= 40)
@@ -220,18 +219,6 @@ namespace WaterRising
                 {
                     UI.Log("You don't have a fillet to speak of!");
                 }
-            }
-            else if (item_group == Player.LookupWord("fish", "item"))
-            {
-                if (action_group == Player.LookupWord("eat") && Player.HasItem("fish") > -1)
-                {
-                    UI.Log("You cannot eat a raw fish!");
-                }
-                else if (action_group == Player.LookupWord("eat"))
-                {
-                    UI.Log("You don't have any fish!");
-                }
-
             }
             else if (action_group == Player.LookupWord("pan"))
             {
