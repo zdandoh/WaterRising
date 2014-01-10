@@ -161,6 +161,7 @@ namespace WaterRising
             // Treasures
             score += (Player.CountItem("nugget") * 100);
             score += (Player.CountItem("diamond") * 1000);
+            score += (Player.CountItem("squid") * 400);
             return score;
         }
 
