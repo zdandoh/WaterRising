@@ -142,10 +142,22 @@ namespace WaterRising
             }
         }
 
+        public static void AddHunger(int amount)
+        {
+            if (hunger > 1000)
+            {
+                UI.Log("You hunger is already full!");
+            }
+            else
+            {
+                hunger += amount;
+            }
+        }
+
         public static int GetScore()
         {
             int score = 0;
-            // +50 points for each item in invent
+            // +25 points for each item in invent
             int total_items = 0;
             foreach (Item item in inventory)
             {

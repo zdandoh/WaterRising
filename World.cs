@@ -159,7 +159,7 @@ namespace WaterRising
                     }
                     if (tried_to_craft == false)
                     {
-                        UI.Log("It is impossible to make a that");
+                        UI.Log("It is impossible to make that");
                     }
                 }
             }
@@ -181,6 +181,7 @@ namespace WaterRising
                     if (Player.HasItem("rod") > -1)
                     {
                         UI.Log("You cast your rod and wait for a bite");
+                        System.Threading.Thread.Sleep(2000);
                         Player.RemoveHunger(10);
                         int path = Rand.Next(0, 101);
                         if (path <= 40)
@@ -213,12 +214,24 @@ namespace WaterRising
                 if (action_group == Player.LookupWord("eat") && Player.RemoveItem("fillet"))
                 {
                     UI.Log("You scarf down the scalding fillet");
-                    Player.hunger += 75;
+                    Player.AddHunger(75);
                 }
                 else
                 {
                     UI.Log("You don't have a fillet to speak of!");
                 }
+            }
+            else if (item_group == Player.LookupWord("fish", "item"))
+            {
+                if (action_group == Player.LookupWord("eat") && Player.HasItem("fish") > -1)
+                {
+                    UI.Log("You cannot eat a raw fish!");
+                }
+                else if (action_group == Player.LookupWord("eat"))
+                {
+                    UI.Log("You don't have any fish!");
+                }
+
             }
             else if (action_group == Player.LookupWord("pan"))
             {
@@ -326,7 +339,7 @@ namespace WaterRising
                 {
                     if (IsPlayerAdjacent(3))
                     {
-                        Player.hunger += 200;
+                        Player.AddHunger(200);
                         RemoveAdjacent(3);
                         UI.Log("You pick the bush clean");
                     }
@@ -335,7 +348,7 @@ namespace WaterRising
                         if (Player.RemoveItem("berry", 3))
                         {
                             UI.Log("You scarf down a few berries from your bag");
-                            Player.hunger += 100;
+                            Player.AddHunger(100);
                         }
                         else
                         {
@@ -521,8 +534,8 @@ namespace WaterRising
         {
             int[] ppos = Player.pos;
             byte[] surr = GetSurround(ppos);
-            int[] return_list = {-1, -1};
-            for (int count = 1; count < surr.Length + 1; count++ )
+            int[] return_list = { -1, -1 };
+            for (int count = 1; count < surr.Length + 1; count++)
             {
                 if (surr[count - 1] == block)
                 {
