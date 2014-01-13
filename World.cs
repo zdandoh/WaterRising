@@ -316,6 +316,8 @@ namespace WaterRising
                     {
                         Player.pos = GetAdjacentBlock(1);
                         Player.RemoveHunger(5);
+                        Player.move_cost = 5;
+                        Player.mountain_move = true;
                         UI.Log("You climb the nearest mountain");
                     }
                     else if (action_group == Player.LookupWord("gather"))

@@ -12,6 +12,8 @@ namespace WaterRising
         public static int[] pos = { 500, 500 };
         public static int health = 1000;
         public static int hunger = 1000;
+        public static int move_cost = 2;
+        public static bool mountain_move = false;
         public static bool can_move = true;
         public static List<Item> inventory = new List<Item>();
         public static Stopwatch MoveTimer = new Stopwatch();
@@ -50,17 +52,29 @@ namespace WaterRising
                 }
                 // Check if we're trying to move into a solid block
                 byte new_player_blockid = Program.world[pos[0], pos[1]];
+                if (new_player_blockid != 1)
+                {
+                    mountain_move = false;
+                    Player.move_cost = 2;
+                }
                 foreach (Block block in World.blocks)
                 {
                     if (new_player_blockid == block.id)
                     {
                         if (block.is_solid == true)
                         {
-                            pos = old_pos;
+                            if (block.id == 1 && mountain_move)
+                            {
+                                // Can move through mountains
+                            }
+                            else
+                            {
+                                pos = old_pos;
+                            }
                         }
                     }
                 }
-                Player.RemoveHunger(2);
+                Player.RemoveHunger(move_cost);
                 UI.UpdateMap(Program.world, pos);
             }
         }
