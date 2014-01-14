@@ -18,6 +18,7 @@ namespace WaterRising
         public static List<Item> inventory = new List<Item>();
         public static Stopwatch MoveTimer = new Stopwatch();
         public static string last_command = "";
+        public static string second_last_command = "";
         public static List<string[]> verbs = LoadWords("verbs");
         public static List<string[]> blocks = LoadWords("blocks");
         public static List<string[]> items = LoadWords("items");
@@ -296,6 +297,7 @@ namespace WaterRising
             }
             else
             {
+                second_last_command = last_command;
                 last_command = command;
             }
             // Extract verb and object, really frickin' breakable atm

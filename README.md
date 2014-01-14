@@ -13,6 +13,7 @@ Controls:
  - Type commands to interact with the world around you
  - The "1" key displays your inventory
  - The "2" key repeats the last command
+ - The "3" key repeats the command before last
  - The command "score" will show you your current score for this game
  - The command "scores" will display the high score table
 

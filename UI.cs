@@ -352,6 +352,11 @@ namespace WaterRising
                 // Repeat action
                 Player.HandleInput(Player.last_command);
             }
+            else if (NativeKeyboard.GetKeyState(0x33) < 0)
+            {
+                // Repeat action
+                Player.HandleInput(Player.second_last_command);
+            }
             // The following line is too damn long
             foreach (KeyValuePair<char, int> pair in key_list)
             {
