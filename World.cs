@@ -134,7 +134,7 @@ namespace WaterRising
                     Interact(-1, Player.LookupWord("craft"), Player.LookupWord("table", "item"), true);
                     if (Player.CountItem("table") > 0)
                     {
-                        Program.world[Player.pos[0], Player.pos[1]] = 8;
+                        OverwriteBlock(8, Player.pos);
                     }
                 }
                 else if (block == Player.LookupWord("furnace", "block") && followup == false)
@@ -142,7 +142,7 @@ namespace WaterRising
                     Interact(-1, Player.LookupWord("craft"), Player.LookupWord("furnace", "item"), true);
                     if (Player.RemoveItem("furnace"))
                     {
-                        Program.world[Player.pos[0], Player.pos[1]] = 9;
+                        OverwriteBlock(9, Player.pos);
                     }
                 }
                 else
@@ -483,7 +483,7 @@ namespace WaterRising
                 {
                     // Farm grows
                     int[] farm_location = farms[farm_count];
-                    Program.world[farm_location[0], farm_location[1]] = 3;
+                    OverwriteBlock(3, Player.pos);
                     farms.RemoveAt(farm_count);
                 }
             }
@@ -530,6 +530,19 @@ namespace WaterRising
         {
             int[] block_coords = GetAdjacentBlock(block);
             Program.world[block_coords[0], block_coords[1]] = new_block;
+        }
+
+        public static void OverwriteBlock(byte id, int[] coords)
+        {
+            byte old_block = Program.world[coords[0], coords[1]];
+            if (old_block == GetBlock("berry").id || old_block == GetBlock("shipwall").id || old_block == GetBlock("shipfloor").id)
+            {
+                // Don't overwrite
+            }
+            else
+            {
+                Program.world[coords[0], coords[1]] = id;
+            }
         }
 
         public static int[] GetAdjacentBlock(int block)
