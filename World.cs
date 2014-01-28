@@ -483,7 +483,7 @@ namespace WaterRising
                 {
                     // Farm grows
                     int[] farm_location = farms[farm_count];
-                    OverwriteBlock(3, Player.pos);
+                    OverwriteBlock(3, farm_location);
                     farms.RemoveAt(farm_count);
                 }
             }
