@@ -25,7 +25,7 @@ namespace WaterRising
         static int Main(string[] args)
         {
             // Setup adventure, yo
-            const string VERSION = "1.0.1";
+            const string VERSION = "1.1";
             const bool DEV = false;
             Console.BufferHeight = 25;
             Console.CursorVisible = false;

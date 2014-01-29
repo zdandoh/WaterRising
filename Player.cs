@@ -10,7 +10,7 @@ namespace WaterRising
     class Player
     {
         public static int[] pos = { 500, 500 };
-        public static int health = 1000;
+        public static int health = 500;
         public static int hunger = 1000;
         public static int move_cost = 2;
         public static bool mountain_move = false;
@@ -180,10 +180,9 @@ namespace WaterRising
             }
             score += total_items * 25;
             // Remaining life and hunger
-            score += health;
+            score += health * 2;
             score += hunger;
             // Count up food
-            score += (Player.CountItem("berry") * 50);
             score += (Player.CountItem("fillet") * 60);
             // Treasures
             score += (Player.CountItem("nugget") * 100);

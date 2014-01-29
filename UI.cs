@@ -103,7 +103,7 @@ namespace WaterRising
         Console.Write("               ");
         Console.BackgroundColor = ConsoleColor.Red;
         Console.SetCursorPosition(62, 17);
-        for (int lentils_drawn = 0; lentils_drawn < (Player.health / 65); lentils_drawn++)
+        for (int lentils_drawn = 0; lentils_drawn < (Player.health / 32.5); lentils_drawn++)
             Console.Write(" ");
         Console.ResetColor();
         Console.SetCursorPosition(77, 17);
