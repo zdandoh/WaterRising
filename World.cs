@@ -42,11 +42,20 @@ namespace WaterRising
                 //Create a farm
                 if (block == Player.LookupWord("farm", "block") || item_group == Player.LookupWord("berry", "item"))
                 {
-                    if (Player.RemoveItem("berry", 2))
+                    int berry_qty = 2;
+                    if (Player.RemoveItem("berry", berry_qty))
                     {
-                        Program.world[Player.pos[0], Player.pos[1]] = 5;
-                        farms.Add(new int[] { Player.pos[0], Player.pos[1] });
-                        UI.Log("You plant a small berry farm");
+                        if (OverwriteBlock(5, Player.pos) == true)
+                        {
+                            Program.world[Player.pos[0], Player.pos[1]] = 5;
+                            farms.Add(new int[] { Player.pos[0], Player.pos[1] });
+                            UI.Log("You plant a small berry farm");
+                        }
+                        else
+                        {
+                            UI.Log("Berries won't grow on a ship!");
+                            Player.AddItem("berry", berry_qty);
+                        }
                     }
                     else
                     {
@@ -532,17 +541,21 @@ namespace WaterRising
             Program.world[block_coords[0], block_coords[1]] = new_block;
         }
 
-        public static void OverwriteBlock(byte id, int[] coords)
+        public static bool OverwriteBlock(byte id, int[] coords)
         {
             byte old_block = Program.world[coords[0], coords[1]];
-            if (old_block == GetBlock("berry").id || old_block == GetBlock("shipwall").id || old_block == GetBlock("shipfloor").id)
+            bool did_overwrite = false;
+            ;
+            if (old_block == GetBlock("shipwall").id || old_block == GetBlock("shipfloor").id)
             {
                 // Don't overwrite
             }
             else
             {
                 Program.world[coords[0], coords[1]] = id;
+                did_overwrite = true;
             }
+            return did_overwrite;
         }
 
         public static int[] GetAdjacentBlock(int block)

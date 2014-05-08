@@ -25,7 +25,7 @@ namespace WaterRising
         static int Main(string[] args)
         {
             // Setup adventure, yo
-            const string VERSION = "1.1";
+            const string VERSION = "1.2";
             const bool DEV = false;
             Console.BufferHeight = 25;
             Console.CursorVisible = false;
@@ -101,7 +101,7 @@ namespace WaterRising
                 var data = new NameValueCollection();
                 data["show"] = "1";
 
-                var response = wb.UploadValues("http://cactuscode.net/cgi-bin/WaterRising/score.py?show=1", "POST", data);
+                var response = wb.UploadValues("http://waterrisinggame.appspot.com/score.py", "POST", data);
                 string scores = System.Text.Encoding.Default.GetString(response);
                 return scores;
             }
@@ -116,7 +116,7 @@ namespace WaterRising
                 data["score"] = score.ToString();
                 data["name"] = name;
 
-                var response = wb.UploadValues("http://cactuscode.net/cgi-bin/WaterRising/score.py", "POST", data);
+                var response = wb.UploadValues("http://waterrisinggame.appspot.com/score.py", "POST", data);
                 string scores = System.Text.Encoding.Default.GetString(response);
                 return scores;
             }

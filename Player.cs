@@ -139,7 +139,7 @@ namespace WaterRising
             }
             return count;
         }
-
+        
         public static void RemoveHunger(int cost)
         {
             if (hunger > 0)
