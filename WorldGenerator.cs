@@ -355,12 +355,12 @@ namespace WaterRising
                 Player.inventory = temp_inv;
                 if (have_table)
                 {
-                    string log_string = String.Format("Cannot craft {0}, missing:", product);
+                    string log_string = String.Format("Cannot craft {0}, missing: ", product);
                     foreach (string item in failed_items)
                     {
-                        log_string += (" " + item);
+                        log_string += (item + ", ");
                     }
-                    UI.Log(log_string);
+                    UI.Log(log_string.Substring(0, log_string.Length - 2));
                 }
             }
             if (success == false && Player.inventory.Count() != item_count)
