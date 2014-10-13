@@ -1,8 +1,8 @@
 ﻿About
 ----------------------------------------------
 
-Water Rising is a console based game that slaps the player in the middle of a rapidly flooding landmass. The player must survive long enough to create a source of food and pilot
-off the island in a boat. The main game content has been completed, and it is currently in a bugfixing/tweaking phase. Combat with inhabitants and local fauna will likely be introduced in a content update after the completion of the main game.
+Water Rising is a console based game that strands the player in the middle of a rapidly flooding landmass. The player must survive long enough to create a source of food and pilot
+off the island in a boat. The game is, at it's core, a text adventure, so your main form of interaction is typing commands into the box at the bottom of the screen. Use classic text adventure commands such as "chop down this tree" to achieve your ultimate goal of building a boat.
 
 How To Play
 ----------------------------------------------
@@ -28,6 +28,6 @@ Tile Legend:
 
 Tips:
  - Type the single letter "r" to repeat the last command once
- - Stand next to the tile you want to interact with, not on it
+ - Stand next to the tile you want to interact with, not on it (IMPORTANT)
  - A good way to start out is by trying to build the boat, the game will tell you which items you'll need, which you can collect individually
  - Chopping trees and mining requires basic tools, try and make those first
